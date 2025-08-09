@@ -118,269 +118,268 @@ function ListaEsperaPage(){
 
     return(
         <div className="min-h-screen bg-gray-100 p-4">
-            <h1 className="text-3xl font-bold text-center text-blue-800 mb-6">
-                Lista de Espera
-            </h1>
+            <h1 className="text-2xl font-bold text-center mb-6">Aguardando</h1>
 
+            {/* Formulário de adição na lista */}
             <table className="min-w-full bg-white border border-gray-200">
                 <thead className="bg-gray-100">
-                    <tr className="text-left">
-                        <th className="py-2 px-4 border-b">Paciente</th>
-                        <th className="py-2 px-4 border-b">Data Entrada</th>
-                        <th className="py-2 px-4 border-b">Indicação</th>
-                        <th className="py-2 px-4 border-b">Preferência</th>
-                        <th className="py-2 px-4 border-b">Ações</th>
-                    </tr>
+                <tr className="text-left">
+                    <th className="py-2 px-4 border-b">Paciente</th>
+                    <th className="py-2 px-4 border-b">Data Entrada</th>
+                    <th className="py-2 px-4 border-b">Indicação</th>
+                    <th className="py-2 px-4 border-b">Preferência</th>
+                    <th className="py-2 px-4 border-b">Ações</th>
+                </tr>
                 </thead>
                 <tbody>
-                
-                    {mostrarFormulario && (
+                {mostrarFormulario && (
                     <tr className="bg-blue-50">
-                        <td className="py-2 px-4 border-b">
+                    {/* Campo paciente com busca */}
+                    <td className="py-2 px-4 border-b relative">
                         <input
-                            type="text"
-                            value={busca}
-                            onChange={keyPress}
-                            className="w-full px-2 py-1 border rounded"
-                            placeholder="Buscar paciente pelo nome"
+                        type="text"
+                        value={busca}
+                        onChange={keyPress}
+                        className="w-full px-2 py-1 border rounded"
+                        placeholder="Buscar paciente pelo nome"
                         />
 
                         {resultados.length > 0 && (
-                            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto">
-                                {resultados.map((paciente) => (
-                                    <li
-                                        key={paciente.id}
-                                        onClick={() => {
-                                            setSelecionado(paciente);
-                                            setBusca(paciente.nome);
-                                            setResultados([]);
-                                        }}
-                                        className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
-                                    >
-                                        {paciente.nome}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}                        
-
-                        </td>
-                        <td className="py-2 px-4 border-b">
-                        <input
-                            type="date"
-                            name="dataEntrada"
-                            value={tratamentoDigitado.dataEntrada}
-                            onChange={handleChange}
-                            className="w-full px-2 py-1 border rounded"
-                        />
-                        </td>
-                        <td className="py-2 px-4 border-b">
-                        <input
-                            type="text"
-                            name="indicacao"
-                            value={tratamentoDigitado.indicacao}
-                            onChange={handleChange}
-                            className="w-full px-2 py-1 border rounded"
-                        />
-                        </td>
-
-                        <td className="py-2 px-4 border-b">
-                        <input
-                            type="text"
-                            name="preferencia"
-                            value={tratamentoDigitado.preferencia}
-                            onChange={handleChange}
-                            className="w-full px-2 py-1 border rounded"
-                        />
-                        </td>
-                        
-                        <td className="py-2 px-4 border-b">
-                            <span
-                                onClick={async () => {
-                                    console.log(tratamentoDigitado);
-                                    adicionarCliente();
-                                    await fetchPacientes();
+                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto">
+                            {resultados.map((paciente) => (
+                            <li
+                                key={paciente.id}
+                                onClick={() => {
+                                setSelecionado(paciente);
+                                setBusca(paciente.nome);
+                                setResultados([]);
                                 }}
+                                className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
                             >
-                                Adicionar
-                            </span>
-                        </td>
+                                {paciente.nome}
+                            </li>
+                            ))}
+                        </ul>
+                        )}
+                    </td>
+
+                    {/* Data entrada */}
+                    <td className="py-2 px-4 border-b">
+                        <input
+                        type="date"
+                        name="dataEntrada"
+                        value={tratamentoDigitado.dataEntrada}
+                        onChange={handleChange}
+                        className="w-full px-2 py-1 border rounded"
+                        />
+                    </td>
+
+                    {/* Indicação */}
+                    <td className="py-2 px-4 border-b">
+                        <input
+                        type="text"
+                        name="indicacao"
+                        value={tratamentoDigitado.indicacao}
+                        onChange={handleChange}
+                        className="w-full px-2 py-1 border rounded"
+                        />
+                    </td>
+
+                    {/* Preferência */}
+                    <td className="py-2 px-4 border-b">
+                        <input
+                        type="text"
+                        name="preferencia"
+                        value={tratamentoDigitado.preferencia}
+                        onChange={handleChange}
+                        className="w-full px-2 py-1 border rounded"
+                        />
+                    </td>
+
+                    {/* Botão adicionar */}
+                    <td className="py-2 px-4 border-b">
+                        <button
+                        onClick={async () => {
+                            adicionarCliente();
+                            await fetchPacientes();
+                        }}
+                        className="text-blue-600 hover:underline"
+                        >
+                        Adicionar
+                        </button>
+                    </td>
                     </tr>
                 )}
                 </tbody>
             </table>
 
-            <div className="overflow-x-auto">
+            {/* Lista de pacientes aguardando */}
+            <div className="overflow-x-auto mt-6">
                 <table className="min-w-full bg-white rounded shadow">
-                    <thead>
-                        <tr className="bg-blue-100 text-left text-gray-700 uppercase text-sm">
-                            <th className="px-4 py-3">Nome</th>
-                            <th className="px-4 py-3">Data Entrada</th>
-                            <th className="px-4 py-3">Aguardando</th>
-                            <th className="px-4 py-3">Indicação</th>
-                            <th className="px-4 py-3">Idade</th>
-                            <th className="px-4 py-3">Preferência</th>
-                            <th className="px-4 py-3">Ações</th>
-                        </tr>
+                <thead>
+                    <tr className="bg-blue-100 text-left text-gray-700 uppercase text-sm">
+                    <th className="px-4 py-3">Nome</th>
+                    <th className="px-4 py-3">Data Entrada</th>
+                    <th className="px-4 py-3">Dias</th>
+                    <th className="px-4 py-3">Indicação</th>
+                    <th className="px-4 py-3">Idade</th>
+                    <th className="px-4 py-3">Preferência</th>
+                    <th className="px-4 py-3">Ações</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {tratamentos.map((tratamento) => (
-                        <tr key={tratamento.id} className="border-b hover:bg-gray-50">
-                            <td className="px-4 py-2">{tratamento.nome}</td>
-                            <td className="px-4 py-2">{tratamento.dataEntrada}</td>
-                            <td className="px-4 py-2">{tratamento.aguardando}</td>
-                            <td className="px-4 py-2">{tratamento.indicacao}</td>
-                            <td className="px-4 py-2">{tratamento.idade}</td>
-                            <td className="px-4 py-2">{tratamento.preferencia}</td>
-                            <td className="px-4 py-2">
-                                <button 
-                                    className="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 mr-2"
-                                    onClick={() => {
-                                        setTratamentoSelecionado(tratamento);
-                                        abrirModal();
-                                    }}    
-                                >
-                                    Agendar
-                                </button>
-                                <button className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
-                                    Remover
-                                </button>
-                            </td>
+                    <tr
+                        key={tratamento.id}
+                        className="border-b hover:bg-gray-50"
+                    >
+                        <td className="px-4 py-2">{tratamento.nome}</td>
+                        <td className="px-4 py-2">{tratamento.dataEntrada}</td>
+                        <td className="px-4 py-2">{tratamento.aguardando}</td>
+                        <td className="px-4 py-2">{tratamento.indicacao}</td>
+                        <td className="px-4 py-2">{tratamento.idade}</td>
+                        <td className="px-4 py-2">{tratamento.preferencia}</td>
+                        <td className="px-4 py-2 flex gap-2">
+                        <button
+                            className="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600"
+                            onClick={() => {
+                            setTratamentoSelecionado(tratamento);
+                            abrirModal();
+                            }}
+                        >
+                            Agendar
+                        </button>
+                        <button
+                            className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
+                        >
+                            Remover
+                        </button>
+                        </td>
                     </tr>
                     ))}
                 </tbody>
                 </table>
             </div>
 
+            {/* Modal de agendamento */}
             {mostrarModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center">
-                <div 
-                    className="absolute inset-0 bg-black bg-opacity-50"
-                    onClick={fecharModal} // Adicione esta função para fechar ao clicar fora
-                ></div>
-                
-                <div className="relative z-10 bg-white rounded-lg shadow-xl w-full max-w-7xl mx-4">
-                    <div className="p-6">
-                        <h3 className="text-lg font-bold mb-4">Agendar Avaliação</h3>
-                        
-                        <form>
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    {/* Fundo escuro */}
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                        onClick={fecharModal}
+                    ></div>
+
+                    {/* Conteúdo do modal */}
+                    <div className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-7xl mx-4 overflow-hidden">
+                            <div className="border-b px-6 py-4 bg-gray-50">
+                                <h3 className="text-xl font-semibold text-gray-800">Agendar Avaliação</h3>
+                            </div>
+
+                        <div className="p-6">
+                            <form className="space-y-6">
                             <div className="mb-4 flex gap-5">
-                                <div className="w-full">
-                                    <label className="block text-gray-700 mb-2">Paciente:</label>
-                                    <label>
-                                        {tratamentoSelecionado.nome}
-                                    </label>
-                                </div>
-
-
-                                <div className="w-full">
-                                    <label className="block text-gray-700 mb-2">Profissional:</label>
-                                    <select 
-                                        className="w-full px-3 py-2 border border-gray-300 rounded"
-                                        value={profissionalSelecionado}
-                                        onChange={(e) => setProfissionalSelecionado(e.target.value)}
-                                    >
-                                        <option value="">Selecione...</option>
-                                        {profissionais.map((profissional) => (
-                                            <option key={profissional.id} value={profissional.id}>
-                                                {profissional.nome}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-
+                            <div className="w-full">
+                                <label className="block text-gray-700 mb-2 font-medium">Paciente:</label>
+                                <span className="block px-3 py-2 bg-gray-50 border border-gray-200 rounded">
+                                {tratamentoSelecionado.nome}
+                                </span>
                             </div>
 
-                            {/* <div className="mb-4 flex gap-2">
-                                <label className="block text-gray-700 mb-2">ID TRATAMENTO:</label>
-                                <div className="flex gap-2">
-                                    {tratamentoSelecionado.id}
-                                </div>
-                            </div> */}
-
-                            <div className="flex gap-4 justify-between">
-                                <div className="mb-4 flex gap-2">
-                                    <label className="block text-gray-700 mb-2">Data de Entrada:</label>
-                                    <div className="flex gap-2">
-                                        {tratamentoSelecionado.dataEntrada}
-                                    </div>
-                                </div>
-
-                                <div className="mb-4 flex gap-2">
-                                    <label className="block text-gray-700 mb-2">Idade:</label>
-                                    <div className="flex gap-2">
-                                        {tratamentoSelecionado.idade}
-                                    </div>
-                                </div>
-
-                                <div className="mb-4 flex gap-2">
-                                    <label className="block text-gray-700 mb-2">Indicação:</label>
-                                    <div className="flex gap-2">
-                                        {tratamentoSelecionado.indicacao}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <AdicionarGuia idTratamento={tratamentoSelecionado.id} />
-                            
-                            {/* <div className="mb-4">
-                                <label className="block text-gray-700 mb-2">Observações</label>
-                                <textarea 
-                                    className="w-full px-3 py-2 border border-gray-300 rounded"
-                                    rows="3"
-                                ></textarea>
-                            </div> */}
-
-                            <div className="mb-4 flex gap-2">
-                                <label className="block text-gray-700 mb-2">Situação:</label>
+                            <div className="w-full">
+                                <label className="block text-gray-700 mb-2 font-medium">Profissional:</label>
                                 <select
-                                    value={situacao}
-                                    onChange={(e) => setSituacao(e.target.value)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={profissionalSelecionado}
+                                onChange={(e) => setProfissionalSelecionado(e.target.value)}
                                 >
-                                    <option value="">Selecione...</option>
-                                    <option value="Em Tratamento">Em Tratamento</option>
-                                    <option value="Avaliação">Avaliação</option>
-                                    <option value="Desistiu">Desistiu</option>
-                                    <option value="Sem Contato">Sem Contato</option>
+                                <option value="">Selecione...</option>
+                                {profissionais.map((profissional) => (
+                                    <option key={profissional.id} value={profissional.id}>
+                                    {profissional.nome}
+                                    </option>
+                                ))}
                                 </select>
-                                {/* <div className="flex gap-2">
-                                    {tratamentoSelecionado.idade}
-                                </div> */}
                             </div>
-                            
+                            </div>
+
+                            {/* Infos adicionais */}
+                            <div className="mb-4 grid grid-cols-3 gap-4">
+                            <div>
+                                <label className="block text-gray-700 mb-2 font-medium">Data de Entrada:</label>
+                                <span className="block px-3 py-2 bg-gray-50 border border-gray-200 rounded">
+                                {tratamentoSelecionado.dataEntrada}
+                                </span>
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 mb-2 font-medium">Idade:</label>
+                                <span className="block px-3 py-2 bg-gray-50 border border-gray-200 rounded">
+                                {tratamentoSelecionado.idade}
+                                </span>
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 mb-2 font-medium">Indicação:</label>
+                                <span className="block px-3 py-2 bg-gray-50 border border-gray-200 rounded">
+                                {tratamentoSelecionado.indicacao}
+                                </span>
+                            </div>
+                            </div>
+
+                            {/* Componente de guia */}
+                            <AdicionarGuia idTratamento={tratamentoSelecionado.id} />
+
+                            {/* Situação */}
+                            <div className="mb-6">
+                            <label className="block text-gray-700 mb-2 font-medium">Situação:</label>
+                            <select
+                                value={situacao}
+                                onChange={(e) => setSituacao(e.target.value)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="">Selecione...</option>
+                                <option value="Em Tratamento">Em Tratamento</option>
+                                <option value="Avaliação">Avaliação</option>
+                                <option value="Desistiu">Desistiu</option>
+                                <option value="Sem Contato">Sem Contato</option>
+                            </select>
+                            </div>
+
+                            {/* Botões */}
                             <div className="flex justify-end gap-3">
-                                <button
-                                    type="button"
-                                    onClick={fecharModal}
-                                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                                >
-                                    Cancelar
-                                </button>
-                                <button
-                                    type="button"
-                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                                    onClick={async () => {
-                                        const novoTratamento = {
-                                            id: tratamentoSelecionado.id,
-                                            situacao: situacao,
-                                            dataInicio: '2025-07-27',
-                                            idProfissional: profissionalSelecionado
-                                        };
-                                        await agendarAvaliacao(novoTratamento);
-                                        console.log(novoTratamento);
-                                        fecharModal();
-                                        setTratamentoSelecionado('');
-                                        setProfissionalSelecionado('');
-                                        await fetchPacientes();
-                                    }}
-                                >
-                                    Confirmar
-                                </button>
+                            <button
+                                type="button"
+                                onClick={fecharModal}
+                                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                type="button"
+                                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                                onClick={async () => {
+                                const novoTratamento = {
+                                    id: tratamentoSelecionado.id,
+                                    situacao,
+                                    dataInicio: '2025-07-27',
+                                    idProfissional: profissionalSelecionado,
+                                };
+                                await agendarAvaliacao(novoTratamento);
+                                fecharModal();
+                                setTratamentoSelecionado('');
+                                setProfissionalSelecionado('');
+                                await fetchPacientes();
+                                }}
+                            >
+                                Confirmar
+                            </button>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
-            </div>)}
-
+            )}
         </div>
     )
 }

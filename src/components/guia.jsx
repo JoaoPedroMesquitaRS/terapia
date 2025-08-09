@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Check, X, CircleAlert } from 'lucide-react';
 
 function Guia({ idTratamento }){
 
@@ -80,168 +81,170 @@ function Guia({ idTratamento }){
     }
 
     return(
-        <table className="min-w-full bg-white border border-gray-200">
-            <thead className="bg-gray-100">
-                <tr className="text-left">
-                    <th className="py-2 px-4 border-b w-40">Senha</th>
-                    <th className="py-2 px-4 border-b w-40">Data Validade</th>
-                    <th className="py-2 px-4 border-b">Indicação</th>
-                    <th className="py-2 px-4 border-b">Serviço</th>
-                    <th className="py-2 px-4 border-b w-10">Qtd. Aut.</th>
-                    <th className="py-2 px-4 border-b w-10">Qtd. Exe.</th>
-                    <th className="py-2 px-4 border-b w-10">Just.</th>
-                    <th className="py-2 px-4 border-b w-10">Tipo</th>
-                    <th className="py-2 px-4 border-b w-40">Ações</th>
+        <table className="min-w-full bg-white border border-gray-200 shadow-sm rounded-lg overflow-hidden">
+            <thead className="bg-gradient-to-r from-gray-100 to-gray-200">
+                <tr className="text-left text-gray-700 text-sm font-semibold">
+                <th className="py-3 px-4 border-b w-40">Senha</th>
+                <th className="py-3 px-4 border-b w-40">Data Validade</th>
+                <th className="py-3 px-4 border-b">Indicação</th>
+                <th className="py-3 px-4 border-b">Serviço</th>
+                <th className="py-3 px-4 border-b w-16 text-center">Qtd. Aut.</th>
+                <th className="py-3 px-4 border-b w-16 text-center">Qtd. Exe.</th>
+                <th className="py-3 px-4 border-b w-16 text-center">Just.</th>
+                <th className="py-3 px-4 border-b w-16 text-center">Tipo</th>
+                <th className="py-3 px-4 border-b w-40 text-center">Ações</th>
                 </tr>
             </thead>
-            <tbody>
-            
+            <tbody className="text-sm">
                 {mostrarFormulario && (
-                <tr className="bg-blue-50">
+                <tr className="bg-blue-50 animate-fade-in">
+                    {/* SENHA */}
                     <td className="py-2 px-4 border-b">
                     <input
                         type="text"
                         name="senha"
                         value={guiaDigitada.senha}
                         onChange={handleChange}
-                        className="w-full px-2 py-1 border rounded"
+                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     />
-
                     </td>
+
+                    {/* DATA */}
                     <td className="py-2 px-4 border-b">
                     <input
                         type="date"
                         name="validade"
                         value={guiaDigitada.validade}
                         onChange={handleChange}
-                        className="w-full px-2 py-1 border rounded"
+                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     />
                     </td>
-                    
+
+                    {/* INDICAÇÃO */}
                     <td className="py-2 px-4 border-b">
                     <input
                         type="text"
                         name="indicacao"
                         value={guiaDigitada.indicacao}
                         onChange={handleChange}
-                        className="w-full px-2 py-1 border rounded"
+                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     />
                     </td>
 
-                    <td className="py-2 px-4 border-b">
+                    {/* SERVIÇO COM DROPDOWN */}
+                    <td className="py-2 px-4 border-b relative">
                     <input
                         type="text"
                         name="servico"
                         value={busca}
                         onChange={keyPress}
-                        className="w-full px-2 py-1 border rounded"
+                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     />
-
                     {resultados.length > 0 && (
-                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto">
-                            {resultados.map((servico) => (
-                                <li
-                                    key={servico.id}
-                                    onClick={() => {
-                                        setSelecionado(servico);
-                                        setBusca(servico.descricao);
-                                        setResultados([]);
-                                    }}
-                                    className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
-                                >
-                                    {servico.descricao}
-                                </li>
-                            ))}
+                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto shadow-lg">
+                        {resultados.map((servico) => (
+                            <li
+                            key={servico.id}
+                            onClick={() => {
+                                setSelecionado(servico);
+                                setBusca(servico.descricao);
+                                setResultados([]);
+                            }}
+                            className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
+                            >
+                            {servico.descricao}
+                            </li>
+                        ))}
                         </ul>
                     )}
-
                     </td>
 
-
-                    <td className="py-2 px-4 border-b">
+                    {/* QTD AUTORIZADA */}
+                    <td className="py-2 px-4 border-b text-center">
                     <input
                         type="text"
                         name="qtdAtendimentoAutorizado"
                         value={guiaDigitada.qtdAtendimentoAutorizado}
                         onChange={handleChange}
-                        className="w-full px-2 py-1 border rounded"
+                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     />
                     </td>
 
-                    <td className="py-2 px-4 border-b">-</td>
-                    <td className="py-2 px-4 border-b">-</td>
-                    <td className="py-2 px-4 border-b">
-                        <select
-                            value={guiaDigitada.tipo}
-                            onChange={(e) =>
-                                setGuiaDigitada((prev) => ({
-                                    ...prev,
-                                    tipo: e.target.value
-                                }))
-                            }
-                        >
-                            <option value="">...</option>
-                            <option value="30">30</option>
-                            <option value="40">40</option>
-                        </select>
+                    <td className="py-2 px-4 border-b text-center">-</td>
+                    <td className="py-2 px-4 border-b text-center">-</td>
+
+                    {/* SELECT */}
+                    <td className="py-2 px-4 border-b text-center">
+                    <select
+                        value={guiaDigitada.tipo}
+                        onChange={(e) =>
+                        setGuiaDigitada((prev) => ({ ...prev, tipo: e.target.value }))
+                        }
+                        className="px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+                    >
+                        <option value="">...</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
                     </td>
-                    
-                    <td className="py-2 px-4 border-b">
-                        <span
-                            onClick={async () => {
-                                const novaGuia = {
-                                    idTratamento: idTratamento,
-                                    senha: guiaDigitada.senha,
-                                    indicacao: guiaDigitada.indicacao,
-                                    validade: guiaDigitada.validade,
-                                    idServico: selecionado.id,
-                                    qtdAtendimentoAutorizado: guiaDigitada.qtdAtendimentoAutorizado,
-                                    tipo: guiaDigitada.tipo,
-                                    situacao: 'Iniciada'
-                                };
-                                console.log(novaGuia);
-                                await adicionarGuia(novaGuia);
-                                setGuiaDigitada({});
-                                await fetchGuias();
-                            }}
-                        >
-                            Adicionar
-                        </span>
+
+                    {/* BOTÃO ADICIONAR */}
+                    <td className="py-2 px-4 border-b text-center">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors"
+                        onClick={async () => {
+                        const novaGuia = {
+                            idTratamento: idTratamento,
+                            senha: guiaDigitada.senha,
+                            indicacao: guiaDigitada.indicacao,
+                            validade: guiaDigitada.validade,
+                            idServico: selecionado.id,
+                            qtdAtendimentoAutorizado: guiaDigitada.qtdAtendimentoAutorizado,
+                            tipo: guiaDigitada.tipo,
+                            situacao: 'Iniciada'
+                        };
+                        await adicionarGuia(novaGuia);
+                        setGuiaDigitada({});
+                        await fetchGuias();
+                        }}
+                    >
+                        Adicionar
+                    </button>
                     </td>
                 </tr>
-            )}
+                )}
 
-            {Array.isArray(guias) && guias.length > 0 && (
-                guias.map((guia) =>(
-                    <tr key={guia.id} className="bg-blue-50">
-                        <td className="py-2 px-4 border-b">{guia.senha}</td>
-                        <td className="py-2 px-4 border-b">{guia.validade}</td>   
-                        <td className="py-2 px-4 border-b">{guia.indicacao}</td>
-                        <td className="py-2 px-4 border-b">{guia.servico?.descricao}</td>
-                        <td className="py-2 px-4 border-b">{guia.qtdAtendimentoAutorizado}</td>
-                        <td className="py-2 px-4 border-b">{guia.qtdAtendida}</td>
-                        <td className="py-2 px-4 border-b">-</td>
-                        <td className="py-2 px-4 border-b">{guia.tipo}</td>
-                        <td className="py-2 px-4 border-b flex gap-5">
-                            <span
-                                onClick={async () => {
-                                    const guiaAtendida = {
-                                        id: guia.id,
-                                        acao: 'Atender'
-                                    };
-                                    await registrarAtendimento(guiaAtendida);
-                                    await fetchGuias();
-                                }}
-                            >
-                                +
-                            </span>
-                            <span>Ñ Comp.</span>
-                            <span>Justificado</span>
-                        </td>
+                {Array.isArray(guias) &&
+                guias.length > 0 &&
+                guias.map((guia) => (
+                    <tr key={guia.id} className="hover:bg-blue-50 transition-colors">
+                    <td className="py-2 px-4 border-b">{guia.senha}</td>
+                    <td className="py-2 px-4 border-b">{guia.validade}</td>
+                    <td className="py-2 px-4 border-b">{guia.indicacao}</td>
+                    <td className="py-2 px-4 border-b">{guia.servico?.descricao}</td>
+                    <td className="py-2 px-4 border-b text-center">{guia.qtdAtendimentoAutorizado}</td>
+                    <td className="py-2 px-4 border-b text-center">{guia.qtdAtendida}</td>
+                    <td className="py-2 px-4 border-b text-center">-</td>
+                    <td className="py-2 px-4 border-b text-center">{guia.tipo}</td>
+                    <td className="py-2 px-4 border-b flex justify-center gap-3">
+                        <button
+                        className="text-green-600 hover:text-green-800 transition-colors"
+                        onClick={async () => {
+                            await registrarAtendimento({ id: guia.id, acao: 'Atender' });
+                            await fetchGuias();
+                        }}
+                        >
+                        <Check />
+                        </button>
+                        <button className="text-red-600 hover:text-red-800 transition-colors">
+                        <X />
+                        </button>
+                        <button className="text-yellow-600 hover:text-yellow-800 transition-colors">
+                        <CircleAlert />
+                        </button>
+                    </td>
                     </tr>
-                ))
-            )}
-
+                ))}
             </tbody>
         </table>
     )

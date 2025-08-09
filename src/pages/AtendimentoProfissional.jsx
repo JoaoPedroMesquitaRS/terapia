@@ -64,297 +64,307 @@ export default function ProfissionalAtendimentosPage() {
 
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Profissional</h1>
+        <div className="max-w-7xl mx-auto p-6">
+            <h1 className="text-2xl font-bold text-center mb-6">Profissional</h1>
 
-            <label className="block mb-4">
-            <span className="text-gray-700">Selecione o Profissional</span>
-            <select
-                className="block mt-1 p-2 border rounded w-full"
-                value={profissionalSelecionado}
-                onChange={(e) => setProfissionalSelecionado(e.target.value)}
-            >
-                <option value="">-- Selecione --</option>
-                {profissionais.map((prof) => (
-                <option key={prof.id} value={prof.id}>
-                    {prof.nome}
-                </option>
-                ))}
-            </select>
+            <label className="block mb-6">
+                <span className="text-gray-700 font-medium">Selecione o Profissional</span>
+                <select
+                    className="block mt-1 p-2 border border-gray-300 rounded w-full shadow-sm"
+                    value={profissionalSelecionado}
+                    onChange={(e) => setProfissionalSelecionado(e.target.value)}
+                >
+                    <option value="">-- Selecione --</option>
+                    {profissionais.map((prof) => (
+                        <option key={prof.id} value={prof.id}>
+                            {prof.nome}
+                        </option>
+                    ))}
+                </select>
             </label>
 
             {profissionalSelecionado && (
-            <>
-                <section className="mt-6">
-                    <h2 className="text-xl font-semibold text-blue-700 mb-2">Aguardando Avaliação</h2>
-                    <table className="w-full border">
-                        <thead className="bg-blue-100">
-                            <tr className="text-left">
-                                <th className="border px-3 py-2">Paciente</th>
-                                <th className="border px-3 py-2">Data Nascimento</th>
-                                <th className="border px-3 py-2">Data Entrada</th>
-                                <th className="border px-3 py-2">Indicação</th>
-                                <th className="border px-3 py-2">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {aguardandoAvaliacao.map((tratamento) => (
-                                <tr key={tratamento.id}>
-                                    <td className="border px-3 py-2">{tratamento.paciente.nome}</td>
-                                    <td className="border px-3 py-2">{tratamento.paciente.dataNascimento}</td>
-                                    <td className="border px-3 py-2">{tratamento.dataEntrada}</td>
-                                    <td className="border px-3 py-2">{tratamento.indicacao}</td>
-                                    <td className="border px-3 py-2">
-                                        <button 
-                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                            onClick={() => {
-                                                setTratamentoSelecionado(tratamento);
-                                                abrirModal();
-                                            }}
-                                        >
-                                            Iniciar Avaliação
-                                        </button>
-                                    </td>
+                <>
+                    <section className="mt-6">
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Aguardando Avaliação</h2>
+                        <table className="min-w-full bg-white border border-gray-300 shadow rounded">
+                            <thead className="bg-blue-100">
+                                <tr className="text-center">
+                                    <th className="px-4 py-2 border">Paciente</th>
+                                    <th className="px-4 py-2 border">Idade</th>
+                                    <th className="px-4 py-2 border">Data Entrada</th>
+                                    <th className="px-4 py-2 border">Indicação</th>
+                                    <th className="px-4 py-2 border">Ações</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </section>
+                            </thead>
+                            <tbody>
+                                {aguardandoAvaliacao.map((tratamento) => (
+                                    <tr key={tratamento.id} className="text-center">
+                                        <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
+                                        <td className="border px-4 py-2">{tratamento.idade}</td>
+                                        <td className="border px-4 py-2">{tratamento.dataEntrada}</td>
+                                        <td className="border px-4 py-2">{tratamento.indicacao}</td>
+                                        <td className="border px-4 py-2">
+                                            <button
+                                                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                                onClick={() => {
+                                                    setTratamentoSelecionado(tratamento);
+                                                    abrirModal();
+                                                }}
+                                            >
+                                                Iniciar Avaliação
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
 
-                {mostrarModal && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center">
-                        <div 
-                            className="absolute inset-0 bg-black bg-opacity-50"
-                            onClick={fecharModal} // Adicione esta função para fechar ao clicar fora
-                        ></div>
-                        
-                        <div className="relative z-10 bg-white rounded-lg shadow-xl w-full max-w-7xl mx-4">
-                            <div className="p-6">
-                                <h3 className="text-lg font-bold mb-4">Iniciar Avaliação</h3>
-                                
-                                <form>
-                                    <div className="mb-4 flex gap-5">
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Paciente</label>
-                                            <label>{tratamentoSelecionado.paciente.nome}</label>
-                                        </div>
+                    {mostrarModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center">
+                            <div
+                                className="absolute inset-0 bg-black bg-opacity-50"
+                                onClick={fecharModal}
+                            ></div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Indicacao</label>
-                                            <label>{tratamentoSelecionado.indicacao}</label>
-                                        </div>
+                            <div className="relative z-10 bg-white rounded-lg shadow-xl w-full max-w-7xl mx-4">
+                                <div className="p-6">
+                                    <h3 className="text-lg font-bold mb-4">Iniciar Avaliação</h3>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Data de Entrada:</label>
-                                            <div className="flex gap-2">
-                                                {tratamentoSelecionado.dataEntrada}
+                                    <form>
+                                        <div className="mb-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                            <div>
+                                                <label className="block text-gray-700 font-medium mb-1">Paciente</label>
+                                                <p>{tratamentoSelecionado.paciente.nome}</p>
                                             </div>
-                                        </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Idade:</label>
-                                            <div className="flex gap-2">
-                                                {tratamentoSelecionado.paciente.dataNascimento}
+                                            <div>
+                                                <label className="block text-gray-700 font-medium mb-1">Indicação</label>
+                                                <p>{tratamentoSelecionado.indicacao}</p>
                                             </div>
-                                        </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Data Início:</label>
-                                            <div className="flex gap-2">
-                                                <input 
-                                                    type="date" 
+                                            <div>
+                                                <label className="block text-gray-700 font-medium mb-1">Data de Entrada</label>
+                                                <p>{tratamentoSelecionado.dataEntrada}</p>
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-gray-700 font-medium mb-1">Idade</label>
+                                                <p>{tratamentoSelecionado.idade}</p>
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-gray-700 font-medium mb-1">Data Início</label>
+                                                <input
+                                                    type="date"
                                                     defaultValue={'2025-08-02'}
                                                     value={dataInicio}
                                                     onChange={(e) => setDataInicio(e.target.value)}
+                                                    className="border border-gray-300 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                         </div>
 
-                                    </div>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 font-medium mb-1">Situação</label>
+                                            <select
+                                                value={situacao}
+                                                onChange={(e) => setSituacao(e.target.value)}
+                                                className="border border-gray-300 rounded px-2 py-1 w-full"
+                                            >
+                                                <option value="">Selecione...</option>
+                                                <option value="Em Tratamento">Em Tratamento</option>
+                                                <option value="Avaliação">Avaliação</option>
+                                                <option value="Desistiu">Desistiu</option>
+                                                <option value="Sem Contato">Sem Contato</option>
+                                            </select>
+                                        </div>
 
-                                    <div className="mb-4 flex gap-2">
-                                        <label className="block text-gray-700 mb-2">Situação:</label>
-                                        <select
-                                            value={situacao}
-                                            onChange={(e) => setSituacao(e.target.value)}
-                                        >
-                                            <option value="">Selecione...</option>
-                                            <option value="Em Tratamento">Em Tratamento</option>
-                                            <option value="Avaliação">Avaliação</option>
-                                            <option value="Desistiu">Desistiu</option>
-                                            <option value="Sem Contato">Sem Contato</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div className="flex justify-end gap-3">
-                                        <button
-                                            type="button"
-                                            onClick={fecharModal}
-                                            className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                                        >
-                                            Cancelar
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                                            onClick={async () => {
-                                                const finalizarAvalicao = {
-                                                    id: tratamentoSelecionado.id,
-                                                    situacao: situacao,
-                                                    dataInicio: dataInicio,
-                                                };
-                                                await finalizarAvaliacao(finalizarAvalicao);
-                                                fecharModal();
-                                                setTratamentoSelecionado('');
-                                                await fetchTratamentos();
-                                            }}
-                                        >
-                                            Confirmar
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div className="flex justify-end gap-3">
+                                            <button
+                                                type="button"
+                                                onClick={fecharModal}
+                                                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                                            >
+                                                Cancelar
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                                onClick={async () => {
+                                                    const finalizarAvalicao = {
+                                                        id: tratamentoSelecionado.id,
+                                                        situacao: situacao,
+                                                        dataInicio: dataInicio,
+                                                    };
+                                                    await finalizarAvaliacao(finalizarAvalicao);
+                                                    fecharModal();
+                                                    setTratamentoSelecionado('');
+                                                    await fetchTratamentos();
+                                                }}
+                                            >
+                                                Confirmar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
-                <section className="mt-10">
-                    <h2 className="text-xl font-semibold text-green-700 mb-2">Em Tratamento</h2>
-                    <table className="w-full border">
-                        <thead className="bg-green-100">
-                            <tr className="text-left">
-                                <th className="border px-3 py-2">Paciente</th>
-                                <th className="border px-3 py-2">Data Nascimento</th>
-                                <th className="border px-3 py-2">Data Início</th>
-                                <th className="border px-3 py-2">Indicação</th>
-                                <th className="border px-3 py-2">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {emTratamento.map((tratamento) => (
-                                <tr key={tratamento.id}>
-                                    <td className="border px-3 py-2">{tratamento.paciente.nome}</td>
-                                    <td className="border px-3 py-2">{tratamento.paciente.dataNascimento}</td>
-                                    <td className="border px-3 py-2">{tratamento.dataInicio}</td>
-                                    <td className="border px-3 py-2">{tratamento.indicacao}</td>
-                                    <td className="border px-3 py-2">
-                                        <button 
-                                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                            onClick={() => {
-                                                setTratamentoSelecionado(tratamento);
-                                                // console.log(tratamento);
-                                                abrirModalEditar();
-                                            }}
-                                        >
-                                            Editar
-                                        </button>
-                                    </td>
+                    <section className="mt-10">
+                        <h2 className="text-xl font-semibold text-green-700 mb-2">Em Tratamento</h2>
+                        <table className="min-w-full bg-white border border-gray-300 shadow rounded">
+                            <thead className="bg-green-100">
+                                <tr className="text-center">
+                                    <th className="px-4 py-2 border">Paciente</th>
+                                    <th className="px-4 py-2 border">Idade</th>
+                                    <th className="px-4 py-2 border">Data Início</th>
+                                    <th className="px-4 py-2 border">Indicação</th>
+                                    <th className="px-4 py-2 border">Ações</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </section>
-
-                {mostrarModalEditar && (
+                            </thead>
+                            <tbody>
+                                {emTratamento.map((tratamento) => (
+                                    <tr key={tratamento.id} className="text-center">
+                                        <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
+                                        <td className="border px-4 py-2">{tratamento.idade}</td>
+                                        <td className="border px-4 py-2">{tratamento.dataInicio}</td>
+                                        <td className="border px-4 py-2">{tratamento.indicacao}</td>
+                                        <td className="border px-4 py-2">
+                                            <button
+                                                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                                                onClick={() => {
+                                                    setTratamentoSelecionado(tratamento);
+                                                    abrirModalEditar();
+                                                    console.log(tratamento)
+                                                }}
+                                            >
+                                                Editar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                    
+                    {mostrarModalEditar && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
-                        <div 
-                            className="absolute inset-0 bg-black bg-opacity-50"
-                            onClick={fecharModalEditar} // Adicione esta função para fechar ao clicar fora
+                        {/* Fundo escurecido */}
+                        <div
+                            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                            onClick={fecharModalEditar}
                         ></div>
-                        
-                        <div className="relative z-10 bg-white rounded-lg shadow-xl w-full max-w-7xl mx-4">
+
+                        {/* Conteúdo do modal */}
+                        <div className="relative z-10 bg-white rounded-xl shadow-2xl w-full max-w-7xl mx-4 overflow-hidden">
+                            <div className="border-b px-6 py-4 bg-gray-50">
+                                <h3 className="text-xl font-semibold text-gray-800">Atendimento</h3>
+                            </div>
+
                             <div className="p-6">
-                                <h3 className="text-lg font-bold mb-4">Atendimento</h3>
-                                
-                                <form>
-                                    <div className="mb-4 flex gap-5">
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Paciente</label>
-                                            <label>{tratamentoSelecionado.paciente.nome}</label>
-                                        </div>
+                            <form className="space-y-6">
+                                {/* Dados do paciente */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
+                                <div>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Paciente
+                                    </label>
+                                    <p className="text-gray-900">{tratamentoSelecionado.paciente.nome}</p>
+                                </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Indicacao</label>
-                                            <label>{tratamentoSelecionado.indicacao}</label>
-                                        </div>
+                                <div>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Indicação
+                                    </label>
+                                    <p className="text-gray-900">{tratamentoSelecionado.indicacao}</p>
+                                </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Data de Entrada:</label>
-                                            <div className="flex gap-2">
-                                                {tratamentoSelecionado.dataEntrada}
-                                            </div>
-                                        </div>
+                                <div>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Data de Entrada
+                                    </label>
+                                    <p className="text-gray-900">{tratamentoSelecionado.dataEntrada}</p>
+                                </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Data de Nascimento:</label>
-                                            <div className="flex gap-2">
-                                                {tratamentoSelecionado.paciente.dataNascimento}
-                                            </div>
-                                        </div>
+                                <div>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Idade
+                                    </label>
+                                    <p className="text-gray-900">{tratamentoSelecionado.idade}</p>
+                                </div>
 
-                                        <div className="w-full">
-                                            <label className="block text-gray-700 mb-2">Data Início:</label>
-                                            <div className="flex gap-2">
-                                                <input 
-                                                    type="date" 
-                                                    // defaultValue={'2025-08-02'}
-                                                    value={dataInicio}
-                                                    onChange={(e) => setDataInicio(e.target.value)}
-                                                />
-                                            </div>
-                                        </div>
+                                <div>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Data Início
+                                    </label>
+                                    <input
+                                    type="date"
+                                    value={dataInicio}
+                                    onChange={(e) => setDataInicio(e.target.value)}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+                                    />
+                                </div>
+                                </div>
 
-                                    </div>
+                                {/* Guia */}
+                                <Guia idTratamento={tratamentoSelecionado.id} />
 
-                                    <Guia idTratamento={tratamentoSelecionado.id} />
+                                {/* Situação */}
+                                <div>
+                                <label className="block text-gray-600 text-sm font-medium mb-1">
+                                    Situação
+                                </label>
+                                <select
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+                                    // value={situacao}
+                                    // onChange={(e) => setSituacao(e.target.value)}
+                                >
+                                    <option value="">Selecione...</option>
+                                    <option value="Em Tratamento">Em Tratamento</option>
+                                    <option value="Avaliação">Avaliação</option>
+                                    <option value="Desistiu">Desistiu</option>
+                                    <option value="Sem Contato">Sem Contato</option>
+                                </select>
+                                </div>
 
-                                    <div className="mb-4 flex gap-2">
-                                        <label className="block text-gray-700 mb-2">Situação:</label>
-                                        <select
-                                            // value={situacao}
-                                            // onChange={(e) => setSituacao(e.target.value)}
-                                        >
-                                            <option value="">Selecione...</option>
-                                            <option value="Em Tratamento">Em Tratamento</option>
-                                            <option value="Avaliação">Avaliação</option>
-                                            <option value="Desistiu">Desistiu</option>
-                                            <option value="Sem Contato">Sem Contato</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div className="flex justify-end gap-3">
-                                        <button
-                                            type="button"
-                                            onClick={fecharModalEditar}
-                                            className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                                        >
-                                            Cancelar
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                                            onClick={async () => {
-                                                // const finalizarAvalicao = {
-                                                //     id: tratamentoSelecionado.id,
-                                                //     situacao: situacao,
-                                                //     dataInicio: dataInicio,
-                                                // };
-                                                // await finalizarAvaliacao(finalizarAvalicao);
-                                                // fecharModal();
-                                                // setTratamentoSelecionado('');
-                                                // await fetchTratamentos();
-                                            }}
-                                        >
-                                            Confirmar
-                                        </button>
-                                    </div>
-                                </form>
+                                {/* Botões */}
+                                <div className="flex justify-end gap-3 pt-4 border-t">
+                                <button
+                                    type="button"
+                                    onClick={fecharModalEditar}
+                                    className="px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="button"
+                                    className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow"
+                                    onClick={async () => {
+                                    // const finalizarAvalicao = {
+                                    //     id: tratamentoSelecionado.id,
+                                    //     situacao: situacao,
+                                    //     dataInicio: dataInicio,
+                                    // };
+                                    // await finalizarAvaliacao(finalizarAvalicao);
+                                    // fecharModal();
+                                    // setTratamentoSelecionado('');
+                                    // await fetchTratamentos();
+                                    }}
+                                >
+                                    Confirmar
+                                </button>
+                                </div>
+                            </form>
                             </div>
                         </div>
-                    </div>
+                        </div>
+
                 )}
 
-            </>
+                </>
             )}
         </div>
     );

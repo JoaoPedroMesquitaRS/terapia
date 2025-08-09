@@ -116,10 +116,19 @@ export async function buscarTProfissional(req, res) {
       order: [['createdAt', 'ASC']]
     });
     
-    if(!listaTratamentos || listaTratamentos === 0){
-      res.status(404).json({error: 'Não foram localizados tratamentos para este Profissional!'});
+    if (!listaTratamentos || listaTratamentos.length === 0) {
+      return res.status(404).json({ error: 'Não foram localizados tratamentos para este Profissional!' });
     }
-    res.status(200).json(listaTratamentos);
+
+    const tratamentosComIdade = listaTratamentos.map((t) => {
+      const plain = t.get({ plain: true }); // transforma em objeto puro
+      return {
+        ...plain,
+        idade: calcularIdade(t.paciente.dataNascimento),
+      };
+    });
+
+    res.status(200).json(tratamentosComIdade);
   } catch(error){
     res.status(500).json({error: error.message});
   }
