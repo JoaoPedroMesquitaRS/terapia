@@ -1,12 +1,42 @@
-# React + Vite
+# Sistema de Gestão de Faturamento para Clínicas de Fisioterapia
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto foi desenvolvido com foco no aprendizado em desenvolvimento web e tem como objetivo simular a gestão de faturamento de clínicas de fisioterapia.
 
-Currently, two official plugins are available:
+O sistema permite:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Cadastrar pacientes.
+- Agendar e acompanhar avaliações com o fisioterapeuta.
+- Registrar procedimentos realizados.
+- Consultar o faturamento mensal.
 
-## Expanding the ESLint configuration
+Os códigos de serviço utilizados seguem o padrão do Rol de Procedimentos da ANS e os valores atribuídos são fictícios, servindo apenas para fins de estudo e demonstração.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tecnologias Utilizadas
+
+- Node.js (Back-end)
+- Express.js (Framework)
+- SQLite (Banco de dados)
+- EJS / HTML / CSS (Interface)
+
+## Objetivo
+
+Este sistema foi criado como parte de um estudo prático para consolidar conhecimentos em:
+
+- Criação de APIs.
+- Integração entre front-end e back-end.
+- Manipulação de banco de dados.
+- Boas práticas de organização de código.
+
+### Imagens do Projeto
+
+#### Tela para Aguardar Agendamento de Avaliação
+![Tela de Início](./assets/aguardando.png)
+
+#### Tela de Agendamento de Avaliação
+![Tela de Profissionais](./assets/agendar-av.png)
+
+#### Tela de Atendimento de Tratamento
+![Tela de Agenda](./assets/atendimento.png)
+
+#### Tela de Faturamento
+![Tela de Atendimento](./assets/faturamento.png)
