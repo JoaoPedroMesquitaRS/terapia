@@ -60,7 +60,7 @@ function Guia({ idTratamento }){
         try {
             const response = await fetch(`http://localhost:3001/servicos?caracter=${value}`);
             const data = await response.json();
-            // console.log(data)
+            console.log(data)
 
             setResultados(data);
         } catch (error) {
@@ -81,7 +81,7 @@ function Guia({ idTratamento }){
     }
 
     return(
-        <table className="min-w-full bg-white border border-gray-200 shadow-sm rounded-lg overflow-hidden">
+        <table className="min-w-full bg-white border border-gray-200 shadow-sm rounded-lg ">
             <thead className="bg-gradient-to-r from-gray-100 to-gray-200">
                 <tr className="text-left text-gray-700 text-sm font-semibold">
                 <th className="py-3 px-4 border-b w-40">Senha</th>
@@ -133,30 +133,31 @@ function Guia({ idTratamento }){
 
                     {/* SERVIÇO COM DROPDOWN */}
                     <td className="py-2 px-4 border-b relative">
-                    <input
-                        type="text"
-                        name="servico"
-                        value={busca}
-                        onChange={keyPress}
-                        className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
-                    />
-                    {resultados.length > 0 && (
-                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto shadow-lg">
-                        {resultados.map((servico) => (
-                            <li
-                            key={servico.id}
-                            onClick={() => {
-                                setSelecionado(servico);
-                                setBusca(servico.descricao);
-                                setResultados([]);
-                            }}
-                            className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
-                            >
-                            {servico.descricao}
-                            </li>
-                        ))}
-                        </ul>
-                    )}
+                        <input
+                            type="text"
+                            name="servico"
+                            value={busca}
+                            onChange={keyPress}
+                            className="w-full px-2 py-1 border rounded"
+                        />
+
+                        {resultados.length > 0 && (
+                            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 max-h-48 overflow-y-auto">
+                            {resultados.map((servico) => (
+                                <li
+                                key={servico.id}
+                                onClick={() => {
+                                    setSelecionado(servico);
+                                    setBusca(servico.descricao);
+                                    setResultados([]);
+                                }}
+                                className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
+                                >
+                                {servico.descricao}
+                                </li>
+                            ))}
+                            </ul>
+                        )}
                     </td>
 
                     {/* QTD AUTORIZADA */}
@@ -183,14 +184,15 @@ function Guia({ idTratamento }){
                         className="px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
                     >
                         <option value="">...</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
+                        <option value="80">80</option>
+                        <option value="60">60</option>
                     </select>
                     </td>
 
                     {/* BOTÃO ADICIONAR */}
                     <td className="py-2 px-4 border-b text-center">
                     <button
+                        type="button"
                         className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors"
                         onClick={async () => {
                         const novaGuia = {
@@ -228,6 +230,7 @@ function Guia({ idTratamento }){
                     <td className="py-2 px-4 border-b text-center">{guia.tipo}</td>
                     <td className="py-2 px-4 border-b flex justify-center gap-3">
                         <button
+                        type="button"
                         className="text-green-600 hover:text-green-800 transition-colors"
                         onClick={async () => {
                             await registrarAtendimento({ id: guia.id, acao: 'Atender' });
@@ -236,10 +239,10 @@ function Guia({ idTratamento }){
                         >
                         <Check />
                         </button>
-                        <button className="text-red-600 hover:text-red-800 transition-colors">
+                        <button type="button" className="text-red-600 hover:text-red-800 transition-colors">
                         <X />
                         </button>
-                        <button className="text-yellow-600 hover:text-yellow-800 transition-colors">
+                        <button type="button" className="text-yellow-600 hover:text-yellow-800 transition-colors">
                         <CircleAlert />
                         </button>
                     </td>

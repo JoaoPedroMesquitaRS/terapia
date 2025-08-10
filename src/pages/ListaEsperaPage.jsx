@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AdicionarGuia from "../components/adicionarGuia.jsx";
+import { Trash, Plus, Calendar } from 'lucide-react';
 
 function ListaEsperaPage(){
 
@@ -203,9 +204,9 @@ function ListaEsperaPage(){
                             adicionarCliente();
                             await fetchPacientes();
                         }}
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
                         >
-                        Adicionar
+                        <Plus />
                         </button>
                     </td>
                     </tr>
@@ -216,11 +217,11 @@ function ListaEsperaPage(){
             {/* Lista de pacientes aguardando */}
             <div className="overflow-x-auto mt-6">
                 <table className="min-w-full bg-white rounded shadow">
-                <thead>
-                    <tr className="bg-blue-100 text-left text-gray-700 uppercase text-sm">
+                <thead className="bg-gradient-to-r from-gray-100 to-gray-200">
+                    <tr className="text-left text-gray-700 text-sm">
                     <th className="px-4 py-3">Nome</th>
                     <th className="px-4 py-3">Data Entrada</th>
-                    <th className="px-4 py-3">Dias</th>
+                    {/* <th className="px-4 py-3">Dias</th> */}
                     <th className="px-4 py-3">Indicação</th>
                     <th className="px-4 py-3">Idade</th>
                     <th className="px-4 py-3">Preferência</th>
@@ -235,24 +236,24 @@ function ListaEsperaPage(){
                     >
                         <td className="px-4 py-2">{tratamento.nome}</td>
                         <td className="px-4 py-2">{tratamento.dataEntrada}</td>
-                        <td className="px-4 py-2">{tratamento.aguardando}</td>
+                        {/* <td className="px-4 py-2">{tratamento.aguardando}</td> */}
                         <td className="px-4 py-2">{tratamento.indicacao}</td>
                         <td className="px-4 py-2">{tratamento.idade}</td>
                         <td className="px-4 py-2">{tratamento.preferencia}</td>
                         <td className="px-4 py-2 flex gap-2">
                         <button
-                            className="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600"
+                            className="text-green-500 hover:text-green-600 transition-colors"
                             onClick={() => {
                             setTratamentoSelecionado(tratamento);
                             abrirModal();
                             }}
                         >
-                            Agendar
+                            <Calendar />
                         </button>
                         <button
-                            className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
+                            className="text-red-600 hover:text-red-800 transition-colors"
                         >
-                            Remover
+                            <Trash />
                         </button>
                         </td>
                     </tr>

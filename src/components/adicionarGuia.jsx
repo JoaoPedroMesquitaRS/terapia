@@ -140,7 +140,7 @@ function AdicionarGuia({ idTratamento }){
           )}
         </td>
 
-        <td className="py-2 px-4 border-b">
+        <td className="py-2 px-4 border-b w-1/12">
           <input
             type="text"
             name="qtdAtendimentoAutorizado"
@@ -150,7 +150,7 @@ function AdicionarGuia({ idTratamento }){
           />
         </td>
 
-        <td className="py-2 px-4 border-b">
+        <td className="py-2 px-4 border-b w-1/12">
           <select
             value={guiaDigitada.tipo}
             onChange={(e) =>
@@ -162,13 +162,14 @@ function AdicionarGuia({ idTratamento }){
             className="w-full px-2 py-1 border rounded"
           >
             <option value="">...</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
+            <option value="80">80</option>
+            <option value="60">60</option>
           </select>
         </td>
 
         <td className="py-2 px-4 border-b text-center">
           <button
+          type="button"
             className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition-colors"
             onClick={async () => {
               const novaGuia = {

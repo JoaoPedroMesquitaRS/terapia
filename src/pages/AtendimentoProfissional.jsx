@@ -86,7 +86,7 @@ export default function ProfissionalAtendimentosPage() {
             {profissionalSelecionado && (
                 <>
                     <section className="mt-6">
-                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Aguardando Avaliação</h2>
+                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Avaliações Agendadas</h2>
                         <table className="min-w-full bg-white border border-gray-300 shadow rounded">
                             <thead className="bg-blue-100">
                                 <tr className="text-center">
@@ -156,13 +156,7 @@ export default function ProfissionalAtendimentosPage() {
 
                                             <div>
                                                 <label className="block text-gray-700 font-medium mb-1">Data Início</label>
-                                                <input
-                                                    type="date"
-                                                    defaultValue={'2025-08-02'}
-                                                    value={dataInicio}
-                                                    onChange={(e) => setDataInicio(e.target.value)}
-                                                    className="border border-gray-300 rounded px-2 py-1 w-full"
-                                                />
+                                                <p>{tratamentoSelecionado.dataInicio}</p>
                                             </div>
                                         </div>
 
@@ -300,12 +294,7 @@ export default function ProfissionalAtendimentosPage() {
                                     <label className="block text-gray-600 text-sm font-medium mb-1">
                                     Data Início
                                     </label>
-                                    <input
-                                    type="date"
-                                    value={dataInicio}
-                                    onChange={(e) => setDataInicio(e.target.value)}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                                    />
+                                    <p>{tratamentoSelecionado.dataInicio}</p>
                                 </div>
                                 </div>
 
@@ -322,7 +311,7 @@ export default function ProfissionalAtendimentosPage() {
                                     // value={situacao}
                                     // onChange={(e) => setSituacao(e.target.value)}
                                 >
-                                    <option value="">Selecione...</option>
+                                    <option value={tratamentoSelecionado.situacao}>{tratamentoSelecionado.situacao}</option>
                                     <option value="Em Tratamento">Em Tratamento</option>
                                     <option value="Avaliação">Avaliação</option>
                                     <option value="Desistiu">Desistiu</option>

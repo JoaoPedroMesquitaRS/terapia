@@ -39,7 +39,7 @@ function ValoresFaturadosPage() {
     }, []);
 
     const somaPercentuais = faturamentos.reduce((acc, item) => {
-        const percentual = (item.tipoPlano / item.valorUnitario) * 100;
+        const percentual = ((item.tipoPlano / 100) * item.valorUnitario);
         if (!isNaN(percentual)) {
             return acc + percentual;
         }
@@ -57,7 +57,7 @@ function ValoresFaturadosPage() {
                     <tr>
                         <th className="px-4 py-2 border">Senha Guia</th>
                         <th className="px-4 py-2 border">Serviço</th>
-                        <th className="px-4 py-2 border">Tipo Plano</th>
+                        <th className="px-4 py-2 border">Participação</th>
                         <th className="px-4 py-2 border">Qtd Atendida</th>
                         <th className="px-4 py-2 border">Valor Unitário (R$)</th>
                         <th className="px-4 py-2 border">Subtotal (R$)</th>
@@ -71,7 +71,7 @@ function ValoresFaturadosPage() {
                             <td className="border px-4 py-2">{item.tipoPlano}%</td>
                             <td className="border px-4 py-2">{item.qtdAtendida}</td>
                             <td className="border px-4 py-2">{item.valorUnitario.toFixed(2)}</td>
-                            <td className="border px-4 py-2">{((item.tipoPlano / item.valorUnitario) * 100).toFixed(2)}</td>
+                            <td className="border px-4 py-2">{(((item.tipoPlano / 100) * item.valorUnitario)).toFixed(2)}</td>
                         </tr>
                     ))}
 
