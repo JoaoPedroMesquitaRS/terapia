@@ -23,6 +23,12 @@ export default function TratamentosPorProfissional() {
     }
   }, [profissionalSelecionado]);
 
+  const formatarData = (dataISO) =>{
+    if(!dataISO) return "";
+    const [ano, mes, dia] = dataISO.split("-");
+    return `${dia}/${mes}/${ano}`;
+  } 
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold text-center mb-6">Tratamentos por Profissional</h1>
@@ -44,7 +50,7 @@ export default function TratamentosPorProfissional() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-2 border">Paciente</th>
+              <th className="p-2 border text-left">Paciente</th>
               <th className="p-2 border">Início</th>
               <th className="p-2 border">Situação</th>
             </tr>
@@ -53,8 +59,8 @@ export default function TratamentosPorProfissional() {
             {tratamentos.map((t) => (
               <tr key={t.id} className="hover:bg-gray-50">
                 <td className="p-2 border">{t.paciente?.nome}</td>
-                <td className="p-2 border">{t.dataInicio}</td>
-                <td className="p-2 border">{t.situacao}</td>
+                <td className="p-2 border text-center">{formatarData(t.dataInicio)}</td>
+                <td className="p-2 border text-center">{t.situacao}</td>
               </tr>
             ))}
           </tbody>

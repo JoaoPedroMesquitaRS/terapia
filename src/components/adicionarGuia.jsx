@@ -38,6 +38,12 @@ function AdicionarGuia({ idTratamento }){
         }));
     };
 
+    const formatarData = (dataISO) => {
+      if(!dataISO) return "";
+      const [ano, mes, dia] = dataISO.split("-");
+      return `${dia}/${mes}/${ano}`
+    }
+
     /*************************** */
 
     const [busca, setBusca] = useState('');
@@ -198,11 +204,11 @@ function AdicionarGuia({ idTratamento }){
       guias.map((guia) => (
         <tr key={guia.id} className="bg-blue-50">
           <td className="py-2 px-4 border-b">{guia.senha}</td>
-          <td className="py-2 px-4 border-b">{guia.validade}</td>
+          <td className="py-2 px-4 border-b text-center">{formatarData(guia.validade)}</td>
           <td className="py-2 px-4 border-b">{guia.indicacao}</td>
           <td className="py-2 px-4 border-b">{guia.servico?.descricao}</td>
-          <td className="py-2 px-4 border-b">{guia.qtdAtendimentoAutorizado}</td>
-          <td className="py-2 px-4 border-b">{guia.tipo}</td>
+          <td className="py-2 px-4 border-b text-center">{guia.qtdAtendimentoAutorizado}</td>
+          <td className="py-2 px-4 border-b text-center">{guia.tipo}</td>
         </tr>
       ))}
   </tbody>

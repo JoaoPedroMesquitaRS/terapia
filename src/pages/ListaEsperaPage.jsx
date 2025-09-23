@@ -75,6 +75,12 @@ function ListaEsperaPage(){
         }));
     };
 
+    const formatarData = (dataISO) => {
+        if(!dataISO) return "";
+        const [ano, mes, dia] = dataISO.split("-");
+        return `${dia}/${mes}/${ano}`;
+    };
+
     /*************************************/
     
     const [busca, setBusca] = useState('');
@@ -116,6 +122,20 @@ function ListaEsperaPage(){
         }).then(res => res.json());
     }
 
+    /*************************************/
+
+    async function excluirItem(tratamentoId){
+        const response = await fetch(`http://localhost:3001/tratamentos/${tratamentoId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            },
+        }).then(res => (res.json()));
+
+        setTratamentos(prev =>
+            prev.filter(t => t.id !== tratamentoId)
+        );
+    }
 
     return(
         <div className="min-h-screen bg-gray-100 p-4">
@@ -151,9 +171,9 @@ function ListaEsperaPage(){
                             <li
                                 key={paciente.id}
                                 onClick={() => {
-                                setSelecionado(paciente);
-                                setBusca(paciente.nome);
-                                setResultados([]);
+                                    setSelecionado(paciente);
+                                    setBusca(paciente.nome);
+                                    setResultados([]);
                                 }}
                                 className="px-2 py-1 hover:bg-blue-100 cursor-pointer"
                             >
@@ -200,13 +220,17 @@ function ListaEsperaPage(){
                     {/* Botão adicionar */}
                     <td className="py-2 px-4 border-b">
                         <button
-                        onClick={async () => {
-                            adicionarCliente();
-                            await fetchPacientes();
-                        }}
+                            onClick={async () => {
+                                adicionarCliente();
+                                await fetchPacientes();
+                                setResultados([]);
+                                setTratamentoDigitado({
+                                    dataEntrada: "", indicacao: "", preferencia: "", situacao: "Aguardando"
+                                });
+                            }}
                         className="text-blue-600 hover:text-blue-800 transition-colors"
                         >
-                        <Plus />
+                            <Plus />
                         </button>
                     </td>
                     </tr>
@@ -235,7 +259,7 @@ function ListaEsperaPage(){
                         className="border-b hover:bg-gray-50"
                     >
                         <td className="px-4 py-2">{tratamento.nome}</td>
-                        <td className="px-4 py-2">{tratamento.dataEntrada}</td>
+                        <td className="px-4 py-2">{formatarData(tratamento.dataEntrada)}</td>
                         {/* <td className="px-4 py-2">{tratamento.aguardando}</td> */}
                         <td className="px-4 py-2">{tratamento.indicacao}</td>
                         <td className="px-4 py-2">{tratamento.idade}</td>
@@ -252,6 +276,9 @@ function ListaEsperaPage(){
                         </button>
                         <button
                             className="text-red-600 hover:text-red-800 transition-colors"
+                            onClick={() => {
+                                excluirItem(tratamento.id);
+                            }}
                         >
                             <Trash />
                         </button>
@@ -309,7 +336,7 @@ function ListaEsperaPage(){
                             <div>
                                 <label className="block text-gray-700 mb-2 font-medium">Data de Entrada:</label>
                                 <span className="block px-3 py-2 bg-gray-50 border border-gray-200 rounded">
-                                {tratamentoSelecionado.dataEntrada}
+                                {formatarData(tratamentoSelecionado.dataEntrada)}
                                 </span>
                             </div>
 
@@ -360,17 +387,17 @@ function ListaEsperaPage(){
                                 type="button"
                                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
                                 onClick={async () => {
-                                const novoTratamento = {
-                                    id: tratamentoSelecionado.id,
-                                    situacao,
-                                    dataInicio: '2025-07-27',
-                                    idProfissional: profissionalSelecionado,
-                                };
-                                await agendarAvaliacao(novoTratamento);
-                                fecharModal();
-                                setTratamentoSelecionado('');
-                                setProfissionalSelecionado('');
-                                await fetchPacientes();
+                                    const novoTratamento = {
+                                        id: tratamentoSelecionado.id,
+                                        situacao,
+                                        dataInicio: '2025-07-27',
+                                        idProfissional: profissionalSelecionado,
+                                    };
+                                    await agendarAvaliacao(novoTratamento);
+                                    fecharModal();
+                                    setTratamentoSelecionado('');
+                                    setProfissionalSelecionado('');
+                                    await fetchPacientes();
                                 }}
                             >
                                 Confirmar

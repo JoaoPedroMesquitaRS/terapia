@@ -8,7 +8,7 @@ function ValoresFaturadosPage() {
 
     useEffect(() => {
         async function buscarFaturamento() {
-            const response = await fetch(`http://localhost:3001/guias/faturamento?mes=08&ano=2025`);
+            const response = await fetch(`http://localhost:3001/guias/faturamento?mes=09&ano=2025`);
             const dados = await response.json();
             
             // Verifica se "historicos" veio como array

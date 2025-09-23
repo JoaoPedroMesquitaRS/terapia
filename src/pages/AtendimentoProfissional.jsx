@@ -62,6 +62,12 @@ export default function ProfissionalAtendimentosPage() {
         }).then(res => res.json());
     }
 
+    const formatarData = (dataISO) => {
+        if(!dataISO) return "";
+        const [ano, mes, dia] = dataISO.split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
 
     return (
         <div className="max-w-7xl mx-auto p-6">
@@ -102,7 +108,7 @@ export default function ProfissionalAtendimentosPage() {
                                     <tr key={tratamento.id} className="text-center">
                                         <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
                                         <td className="border px-4 py-2">{tratamento.idade}</td>
-                                        <td className="border px-4 py-2">{tratamento.dataEntrada}</td>
+                                        <td className="border px-4 py-2">{formatarData(tratamento.dataEntrada)}</td>
                                         <td className="border px-4 py-2">{tratamento.indicacao}</td>
                                         <td className="border px-4 py-2">
                                             <button
@@ -146,7 +152,7 @@ export default function ProfissionalAtendimentosPage() {
 
                                             <div>
                                                 <label className="block text-gray-700 font-medium mb-1">Data de Entrada</label>
-                                                <p>{tratamentoSelecionado.dataEntrada}</p>
+                                                <p>{formatarData(tratamentoSelecionado.dataEntrada)}</p>
                                             </div>
 
                                             <div>
@@ -156,7 +162,7 @@ export default function ProfissionalAtendimentosPage() {
 
                                             <div>
                                                 <label className="block text-gray-700 font-medium mb-1">Data Início</label>
-                                                <p>{tratamentoSelecionado.dataInicio}</p>
+                                                <p>{formatarData(tratamentoSelecionado.dataInicio)}</p>
                                             </div>
                                         </div>
 
@@ -224,7 +230,7 @@ export default function ProfissionalAtendimentosPage() {
                                     <tr key={tratamento.id} className="text-center">
                                         <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
                                         <td className="border px-4 py-2">{tratamento.idade}</td>
-                                        <td className="border px-4 py-2">{tratamento.dataInicio}</td>
+                                        <td className="border px-4 py-2">{formatarData(tratamento.dataInicio)}</td>
                                         <td className="border px-4 py-2">{tratamento.indicacao}</td>
                                         <td className="border px-4 py-2">
                                             <button
@@ -280,7 +286,7 @@ export default function ProfissionalAtendimentosPage() {
                                     <label className="block text-gray-600 text-sm font-medium mb-1">
                                     Data de Entrada
                                     </label>
-                                    <p className="text-gray-900">{tratamentoSelecionado.dataEntrada}</p>
+                                    <p className="text-gray-900">{formatarData(tratamentoSelecionado.dataEntrada)}</p>
                                 </div>
 
                                 <div>
@@ -294,7 +300,7 @@ export default function ProfissionalAtendimentosPage() {
                                     <label className="block text-gray-600 text-sm font-medium mb-1">
                                     Data Início
                                     </label>
-                                    <p>{tratamentoSelecionado.dataInicio}</p>
+                                    <p>{formatarData(tratamentoSelecionado.dataInicio)}</p>
                                 </div>
                                 </div>
 

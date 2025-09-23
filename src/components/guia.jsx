@@ -40,6 +40,12 @@ function Guia({ idTratamento }){
         }));
     };
 
+    const formatarData = (dataISO) =>{
+        if(!dataISO) return "";
+        const [ano, mes, dia] = dataISO.split("-");
+        return `${dia}/${mes}/${ano}`;
+    }
+
     /*************************** */
 
     const [tipoSelecionado, setTipoSelecionado] = useState("");
@@ -221,7 +227,7 @@ function Guia({ idTratamento }){
                 guias.map((guia) => (
                     <tr key={guia.id} className="hover:bg-blue-50 transition-colors">
                     <td className="py-2 px-4 border-b">{guia.senha}</td>
-                    <td className="py-2 px-4 border-b">{guia.validade}</td>
+                    <td className="py-2 px-4 border-b">{formatarData(guia.validade)}</td>
                     <td className="py-2 px-4 border-b">{guia.indicacao}</td>
                     <td className="py-2 px-4 border-b">{guia.servico?.descricao}</td>
                     <td className="py-2 px-4 border-b text-center">{guia.qtdAtendimentoAutorizado}</td>
