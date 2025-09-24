@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { agendarAvaliacao, buscarTProfissional, criarTratamento, deletarTratamento, listarPorProfissional, listarTratamentosAguardando } from '../controllers/tratamentoController.js';
+import { agendarAvaliacao, alterarSituacao, buscarTProfissional, criarTratamento, deletarTratamento, listarPorProfissional, listarTratamentosAguardando } from '../controllers/tratamentoController.js';
 
 const router = express.Router();
 
@@ -9,5 +9,6 @@ router.get('/', listarPorProfissional);
 router.delete('/:id', deletarTratamento);
 router.get('/:profissionalSelecionado', buscarTProfissional);
 router.put('/avaliacao/:id', agendarAvaliacao);
+router.put('/situacao/:id', alterarSituacao);
 
 export default router;

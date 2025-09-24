@@ -6,6 +6,7 @@ export default function ProfissionalAtendimentosPage() {
     const [profissionalSelecionado, setProfissionalSelecionado] = useState("");
     const [aguardandoAvaliacao, setAguardandoAvaliacao] = useState([]);
     const [emTratamento, setEmTratamento] = useState([]);
+    const [ dataFinal, setDataFinal ] = useState([]);
 
     useEffect(() => {
         
@@ -68,6 +69,17 @@ export default function ProfissionalAtendimentosPage() {
         return `${dia}/${mes}/${ano}`;
     }
 
+    /********** ALTERAR SITUACAO **********/
+
+    async function alterarSituacao(tratamentoId, dataFinal) {
+        const response = await fetch(`http://localhost:3001/tratamentos/situacao/${tratamentoId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({situacao: 'Alta', dataFinal})
+        }).then(res => res.json())
+    }
 
     return (
         <div className="max-w-7xl mx-auto p-6">
@@ -177,7 +189,7 @@ export default function ProfissionalAtendimentosPage() {
                                                 <option value="Em Tratamento">Em Tratamento</option>
                                                 <option value="Avaliação">Avaliação</option>
                                                 <option value="Desistiu">Desistiu</option>
-                                                <option value="Sem Contato">Sem Contato</option>
+                                                <option value="Alta">Alta</option>
                                             </select>
                                         </div>
 
@@ -272,7 +284,9 @@ export default function ProfissionalAtendimentosPage() {
                                     <label className="block text-gray-600 text-sm font-medium mb-1">
                                     Paciente
                                     </label>
-                                    <p className="text-gray-900">{tratamentoSelecionado.paciente.nome}</p>
+                                    <p className="text-gray-900">
+                                        {tratamentoSelecionado?.paciente?.nome || "Paciente não informado"}
+                                    </p>
                                 </div>
 
                                 <div>
@@ -309,20 +323,34 @@ export default function ProfissionalAtendimentosPage() {
 
                                 {/* Situação */}
                                 <div>
-                                <label className="block text-gray-600 text-sm font-medium mb-1">
-                                    Situação
-                                </label>
-                                <select
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
-                                    // value={situacao}
-                                    // onChange={(e) => setSituacao(e.target.value)}
-                                >
-                                    <option value={tratamentoSelecionado.situacao}>{tratamentoSelecionado.situacao}</option>
-                                    <option value="Em Tratamento">Em Tratamento</option>
-                                    <option value="Avaliação">Avaliação</option>
-                                    <option value="Desistiu">Desistiu</option>
-                                    <option value="Sem Contato">Sem Contato</option>
-                                </select>
+                                    <label className="block text-gray-600 text-sm font-medium mb-1">
+                                        Situação
+                                    </label>
+                                    <select
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
+                                        value={situacao}
+                                        onChange={(e) => setSituacao(e.target.value)}
+                                    >
+                                        <option value={tratamentoSelecionado.situacao}>{tratamentoSelecionado.situacao}</option>
+                                        <option value="Em Tratamento">Em Tratamento</option>
+                                        <option value="Avaliação">Avaliação</option>
+                                        <option value="Desistiu">Desistiu</option>
+                                        <option value="Alta">Alta</option>
+                                    </select>
+
+                                    {situacao === 'Alta' && (
+                                        <div>
+                                            <label>Data Alta:</label>
+                                            <input 
+                                                type="date" 
+                                                name="dataFinal"
+                                                value={dataFinal}
+                                                onChange={(e) => setDataFinal(e.target.value)}
+                                               className="w-full px-2 py-1 border rounded focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+                                            />
+                                        </div>
+                                    )}
+
                                 </div>
 
                                 {/* Botões */}
@@ -338,15 +366,13 @@ export default function ProfissionalAtendimentosPage() {
                                     type="button"
                                     className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow"
                                     onClick={async () => {
-                                    // const finalizarAvalicao = {
-                                    //     id: tratamentoSelecionado.id,
-                                    //     situacao: situacao,
-                                    //     dataInicio: dataInicio,
-                                    // };
-                                    // await finalizarAvaliacao(finalizarAvalicao);
-                                    // fecharModal();
-                                    // setTratamentoSelecionado('');
-                                    // await fetchTratamentos();
+                                        if(situacao === 'Alta'){
+                                            await alterarSituacao(tratamentoSelecionado.id, dataFinal);
+                                        }
+                                        fecharModalEditar();
+                                        setTratamentoSelecionado('');
+                                        setSituacao('');
+                                        await fetchTratamentos();
                                     }}
                                 >
                                     Confirmar

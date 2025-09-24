@@ -148,3 +148,25 @@ export async function deletarTratamento(req, res) {
     res.status(500).json({error: error.message});
   }
 };
+
+export async function alterarSituacao(req, res) {
+  
+  try{
+    const { id } = req.params;
+    const { situacao, dataFinal } = req.body;
+  
+    const [quantidadeAtualizada] = await Tratamento.update(
+      {
+        situacao, dataFinal
+      },
+      {where: {id}}
+    );
+
+    if(quantidadeAtualizada === 0){
+      return res.status(400).json({error: 'Tratamento não localizado!'})
+    }
+    res.status(200).json({message: 'Tratamento alterado com sucesso!'})
+  } catch(error){
+    res.status(500).json({error: error.message});
+  }
+}

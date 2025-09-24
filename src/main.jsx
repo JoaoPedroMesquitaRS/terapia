@@ -8,6 +8,7 @@ import ListaEsperaPage from './pages/ListaEsperaPage.jsx'
 import VisaoGeral from './pages/VisaoGeralPage.jsx';
 import AtendimentoProfissional from './pages/AtendimentoProfissional.jsx'
 import ValoresFaturadosPage from './pages/ValoresFaturadosPage.jsx';
+import AltaPage from './pages/AltaPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: '/visao-geral', element: <VisaoGeral /> },
       { path: '/atendimento-profissional', element: <AtendimentoProfissional /> },
       { path: '/faturamento', element: <ValoresFaturadosPage /> },
+      { path: '/alta', element: <AltaPage /> },
     ],
   },
 ]);
