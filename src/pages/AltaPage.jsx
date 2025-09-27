@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 
 export default function AltaPage(){
@@ -16,14 +15,23 @@ export default function AltaPage(){
     }, []);
 
     useEffect(() => {
-        if (profissionalSelecionado) {
-            axios.get(`http://localhost:3001/tratamentos?profissional=${profissionalSelecionado}&situacao=Alta`)
-            .then(res => setTratamentos(res.data))
-            .catch(err => console.error(err));
-        } else {
-            setTratamentos([]);
+        
+        async function altaData() {
+            if (profissionalSelecionado && mesSelecionado && profissionalSelecionado) {
+    
+                const response = await fetch(`http://localhost:3001/tratamentos/altaData?idProfissional=${profissionalSelecionado}&ano=${anoSelecionado}&mes=${mesSelecionado}`)
+                .then(res => res.json())
+
+                setTratamentos(response);
+    
+            } else {
+                setTratamentos([]);
+            }
         }
-    }, [profissionalSelecionado]);
+
+        altaData();
+
+    }, [anoSelecionado, mesSelecionado, profissionalSelecionado]);
 
     /*************************/
     function formatarData(dataISO){
@@ -37,20 +45,27 @@ export default function AltaPage(){
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-2xl font-bold text-center mb-6">Altas por Profissional</h1>
 
-            <select
-                value={profissionalSelecionado}
-                onChange={(e) => setProfissionalSelecionado(e.target.value)}
-                className="w-full p-2 border rounded mb-6"
-            >
-                <option value="">Selecionar um Profissional</option>
-                {profissionais.map((profissional) => (
-                <option key={profissional.id} value={profissional.id}>
-                    {profissional.nome}
-                </option>
-                ))}
-            </select>
 
             <div className="flex flex-wrap gap-4 justify-center mb-8">
+
+                <div>
+                    <label className="block mb-1 text-sm font-medium text-gray-700">
+                        Selecione o Profissional:
+                    </label>
+                    <select
+                        value={profissionalSelecionado}
+                        onChange={(e) => setProfissionalSelecionado(e.target.value)}
+                        className="w-full p-2 border rounded mb-6"
+                    >
+                        <option value="">-</option>
+                        {profissionais.map((profissional) => (
+                            <option key={profissional.id} value={profissional.id}>
+                                {profissional.nome}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 <div>
                     <label className="block mb-1 text-sm font-medium text-gray-700">
                         Selecione o mês:
@@ -93,6 +108,14 @@ export default function AltaPage(){
                 </div>
             </div>
                 
+            <tr className="bg-gray-100">
+                <td colSpan="3" className="px-6 py-3 text-right font-bold">
+                    Total:
+                </td>
+                <td className="px-6 py-3 text-center font-bold text-green-600">
+                    {tratamentos.length}
+                </td>
+            </tr>
 
             {tratamentos.length > 0 ? (
                 <table className="w-full border-collapse">

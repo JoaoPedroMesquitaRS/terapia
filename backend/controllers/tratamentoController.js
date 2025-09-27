@@ -1,5 +1,6 @@
 import Tratamento from '../models/Tratamento.js';
 import Paciente from '../models/Paciente.js';
+import { Op } from 'sequelize';
 
 export async function criarTratamento(req, res) {
     try{
@@ -169,4 +170,33 @@ export async function alterarSituacao(req, res) {
   } catch(error){
     res.status(500).json({error: error.message});
   }
+}
+
+export async function altaData(req, res) {
+  const { idProfissional, ano, mes } = req.query;
+
+  try{
+    
+    const inicioMes = new Date(ano, mes - 1, 1); // meses começam em 0 no JS
+    const fimMes = new Date(ano, mes, 0, 23, 59, 59); // último dia do mês
+
+    const altas = await Tratamento.findAll({
+      where: {
+        dataFinal: {
+          [Op.between]: [inicioMes, fimMes],
+        },
+        idProfissional, // já filtra pelo profissional
+      },
+      include: [{
+          model: Paciente,
+          as: 'paciente',
+          attributes: ['nome', 'dataNascimento']
+      }]
+    });
+
+    res.json(altas)
+  } catch (error){
+    res.status(500).json({ error: error.message });
+  }
+  
 }
