@@ -137,6 +137,8 @@ function ListaEsperaPage(){
         );
     }
 
+    const hoje = new Date();
+
     return(
         <div className="min-h-screen bg-gray-100 p-4">
             <h1 className="text-2xl font-bold text-center mb-6">Aguardando</h1>
@@ -227,6 +229,7 @@ function ListaEsperaPage(){
                                 setTratamentoDigitado({
                                     dataEntrada: "", indicacao: "", preferencia: "", situacao: "Aguardando"
                                 });
+                                setBusca('');
                             }}
                         className="text-blue-600 hover:text-blue-800 transition-colors"
                         >
@@ -295,7 +298,10 @@ function ListaEsperaPage(){
                     {/* Fundo escuro */}
                     <div
                         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-                        onClick={fecharModal}
+                        onClick={ () => {
+                            fecharModal();
+                            setSituacao('');
+                        }}
                     ></div>
 
                     {/* Conteúdo do modal */}
@@ -378,7 +384,10 @@ function ListaEsperaPage(){
                             <div className="flex justify-end gap-3">
                             <button
                                 type="button"
-                                onClick={fecharModal}
+                                onClick={ () => { 
+                                    fecharModal();
+                                    setSituacao('');
+                                }}
                                 className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
                             >
                                 Cancelar
@@ -390,7 +399,7 @@ function ListaEsperaPage(){
                                     const novoTratamento = {
                                         id: tratamentoSelecionado.id,
                                         situacao,
-                                        dataInicio: '2025-07-27',
+                                        dataInicio: hoje,
                                         idProfissional: profissionalSelecionado,
                                     };
                                     await agendarAvaliacao(novoTratamento);
@@ -398,6 +407,7 @@ function ListaEsperaPage(){
                                     setTratamentoSelecionado('');
                                     setProfissionalSelecionado('');
                                     await fetchPacientes();
+                                    setSituacao('');
                                 }}
                             >
                                 Confirmar

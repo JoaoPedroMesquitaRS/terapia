@@ -49,7 +49,6 @@ export default function ProfissionalAtendimentosPage() {
     /**************************************/
 
     const [situacao, setSituacao] = useState(null);
-    const [dataInicio, setDataInicio] = useState('');
 
     const [tratamentoSelecionado, setTratamentoSelecionado] = useState([]);
 
@@ -61,6 +60,7 @@ export default function ProfissionalAtendimentosPage() {
             },
             body: JSON.stringify(novoTratamento)
         }).then(res => res.json());
+
     }
 
     const formatarData = (dataISO) => {
@@ -207,8 +207,7 @@ export default function ProfissionalAtendimentosPage() {
                                                 onClick={async () => {
                                                     const finalizarAvalicao = {
                                                         id: tratamentoSelecionado.id,
-                                                        situacao: situacao,
-                                                        dataInicio: dataInicio,
+                                                        situacao: situacao
                                                     };
                                                     await finalizarAvaliacao(finalizarAvalicao);
                                                     fecharModal();

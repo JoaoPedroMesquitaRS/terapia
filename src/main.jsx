@@ -10,15 +10,18 @@ import AtendimentoProfissional from './pages/AtendimentoProfissional.jsx'
 import ValoresFaturadosPage from './pages/ValoresFaturadosPage.jsx';
 import AltaPage from './pages/AltaPage.jsx';
 
+import AppLayout from './components/AppLayout.jsx';
+
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <AppLayout />,
     children: [
-      { path: '/lista-espera', element: <ListaEsperaPage /> },
-      { path: '/visao-geral', element: <VisaoGeral /> },
-      { path: '/atendimento-profissional', element: <AtendimentoProfissional /> },
-      { path: '/faturamento', element: <ValoresFaturadosPage /> },
-      { path: '/alta', element: <AltaPage /> },
+      { path: 'lista-espera', element: <ListaEsperaPage /> },
+      { path: 'visao-geral', element: <VisaoGeral /> },
+      { path: 'atendimento-profissional', element: <AtendimentoProfissional /> },
+      { path: 'faturamento', element: <ValoresFaturadosPage /> },
+      { path: 'alta', element: <AltaPage /> },
     ],
   },
 ]);
