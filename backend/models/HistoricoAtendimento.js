@@ -7,6 +7,14 @@ const HistoricoAtendimento = sequelize.define('HistoricoAtendimento', {
         primaryKey: true,
         autoIncrement: true
     },
+    idPaciente: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'pacientes',
+            key: 'id'
+        }
+    },
     idGuia: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -17,6 +25,10 @@ const HistoricoAtendimento = sequelize.define('HistoricoAtendimento', {
     },
     dataAtendimento: {
         type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    situacao: {
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {
@@ -29,6 +41,12 @@ HistoricoAtendimento.associate = (models) => {
         foreignKey: 'idGuia',
         as: 'guia'
     });
+
+    HistoricoAtendimento.belongsTo(models.Paciente, {
+        foreignKey: 'idPaciente',
+        as: 'paciente'
+    });
+
 }
 
 

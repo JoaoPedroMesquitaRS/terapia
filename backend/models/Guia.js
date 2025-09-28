@@ -29,8 +29,16 @@ const Guia = sequelize.define('Guia', {
     },
     qtdAtendida: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0
+    },
+    qtdFalta: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    qtdJustificada: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     },
     idServico: {
         type: DataTypes.INTEGER,

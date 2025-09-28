@@ -1,7 +1,9 @@
-import sequelize from '../config/database.js';
+// import sequelize from '../config/database.js';
 import { Op } from 'sequelize';
 import Guia from '../models/Guia.js';
+import Paciente from '../models/Paciente.js'
 import Servico from '../models/Servico.js';
+import Tratamento from '../models/Tratamento.js';
 import HistoricoAtendimento from '../models/HistoricoAtendimento.js';
 
 export async function criarGuia(req, res) {
@@ -24,9 +26,14 @@ export async function listarGuiasTratamento(req, res) {
             },
             include: [
                 {
-                model: Servico,
-                as: 'servico',
-                attributes: ['descricao'] // pode incluir também 'valor' se quiser
+                    model: Servico,
+                    as: 'servico',
+                    attributes: ['descricao']
+                },
+                {
+                    model: Tratamento,
+                    as: 'tratamento',
+                    attributes: ['idPaciente']
                 }
             ]
         })
@@ -40,10 +47,41 @@ export async function listarGuiasTratamento(req, res) {
     }
 };
 
+export async function listarHistoricoAtendimento(req, res) {
+    
+    try{
+        const { id } = req.params;
+
+        const listaHistorico = await HistoricoAtendimento.findAll({
+            where:{
+                idGuia: id
+            },
+            include: [{
+                model: Guia,
+                as: 'guia',
+                include: [{ model: Servico, as: 'servico' }],
+                attributes: ['senha']
+            },
+            {
+                model: Paciente,
+                as: 'paciente',
+                attributes: ['nome']
+            }]
+        })
+
+        if(!listaHistorico || listaHistorico === 0){
+            return res.status(404).json({error: 'Não localizado histórico relacionado a essa guia!'})
+        }
+        res.status(200).json(listaHistorico)
+    } catch(error){
+        res.status(500).json({error: error.message});
+    }
+};
+
 export async function registrarAtendimento(req, res) {
     try{ 
         const { id } = req.params;
-        const { acao } = req.body;
+        const { acao, idPaciente } = req.body;
 
         const guia = await Guia.findByPk(id);
         if(!guia) return res.status(404).json({error: 'Guia não localizada!'});
@@ -58,11 +96,44 @@ export async function registrarAtendimento(req, res) {
 
             await HistoricoAtendimento.create({
                 idGuia: id,
-                dataAtendimento: new Date().toISOString().split('T')[0]
+                dataAtendimento: new Date().toISOString().split('T')[0],
+                situacao: 'Atendida',
+                idPaciente
             });
 
             res.status(200).json({message: 'Atendimento registrado com sucesso!'});
         }
+
+        if(acao == 'Faltar'){
+            
+            guia.qtdFalta += 1;
+            await guia.save();
+
+            await HistoricoAtendimento.create({
+                idGuia: id,
+                dataAtendimento: new Date().toISOString().split('T')[0],
+                situacao: 'Falta',
+                idPaciente
+            });
+
+            res.status(200).json({message: 'Falta registrada com sucesso!'});
+        }
+
+        if(acao == 'Justificar'){
+
+            guia.qtdJustificada += 1;
+            await guia.save();
+
+            await HistoricoAtendimento.create({
+                idGuia: id,
+                dataAtendimento: new Date().toISOString().split('T')[0],
+                situacao: 'Justificada',
+                idPaciente
+            });
+
+            res.status(200).json({message: 'Falta justificada com sucesso!'});
+        }
+
     } catch(error){
         res.status(500).json({error: error.message});
     }
