@@ -38,8 +38,8 @@ function ValoresFaturadosPage() {
 
     return (
         <div className="max-w-7xl mx-auto p-8 bg-gray-50 min-h-screen">
-            <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-800">
-                📊 Faturamento do Mês
+            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Faturamento do Mês
             </h1>
 
             <div className="flex flex-wrap gap-4 justify-center mb-8">
@@ -87,7 +87,8 @@ function ValoresFaturadosPage() {
 
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
-                    <thead className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
+                    {/* <thead className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white"> */}
+                    <thead className="bg-gradient-to-r bg-gray-800 text-white">
                         <tr>
                             <th className="px-6 py-3 text-left">Senha Guia</th>
                             <th className="px-6 py-3 text-left">Serviço</th>

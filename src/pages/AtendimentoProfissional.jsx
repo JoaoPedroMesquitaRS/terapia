@@ -82,8 +82,11 @@ export default function ProfissionalAtendimentosPage() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
-            <h1 className="text-2xl font-bold text-center mb-6">Profissional</h1>
+        <div className="max-w-7xl mx-auto p-8 bg-gray-50 min-h-screen">
+            
+            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Atendimentos por Profissional
+            </h1>
 
             <label className="block mb-6">
                 <span className="text-gray-700 font-medium">Selecione o Profissional</span>
@@ -103,40 +106,51 @@ export default function ProfissionalAtendimentosPage() {
 
             {profissionalSelecionado && (
                 <>
-                    <section className="mt-6">
-                        <h2 className="text-xl font-semibold text-blue-700 mb-2">Avaliações Agendadas</h2>
-                        <table className="min-w-full bg-white border border-gray-300 shadow rounded">
-                            <thead className="bg-blue-100">
-                                <tr className="text-center">
-                                    <th className="px-4 py-2 border">Paciente</th>
-                                    <th className="px-4 py-2 border">Idade</th>
-                                    <th className="px-4 py-2 border">Data Entrada</th>
-                                    <th className="px-4 py-2 border">Indicação</th>
-                                    <th className="px-4 py-2 border">Ações</th>
+                    <section className="mt-10">
+                        <h2 className="text-2xl font-medium text-blue-700 mb-4 text-center">
+                            Avaliações Agendadas
+                        </h2>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
+                            <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                                <tr className="text-center text-sm font-semibold">
+                                <th className="px-6 py-3">Paciente</th>
+                                <th className="px-6 py-3">Idade</th>
+                                <th className="px-6 py-3">Data Entrada</th>
+                                <th className="px-6 py-3">Indicação</th>
+                                <th className="px-6 py-3">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {aguardandoAvaliacao.map((tratamento) => (
-                                    <tr key={tratamento.id} className="text-center">
-                                        <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
-                                        <td className="border px-4 py-2">{tratamento.idade}</td>
-                                        <td className="border px-4 py-2">{formatarData(tratamento.dataEntrada)}</td>
-                                        <td className="border px-4 py-2">{tratamento.indicacao}</td>
-                                        <td className="border px-4 py-2">
-                                            <button
-                                                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                                onClick={() => {
-                                                    setTratamentoSelecionado(tratamento);
-                                                    abrirModal();
-                                                }}
-                                            >
-                                                Iniciar Avaliação
-                                            </button>
-                                        </td>
-                                    </tr>
+                                {aguardandoAvaliacao.map((tratamento, idx) => (
+                                <tr
+                                    key={tratamento.id}
+                                    className={`text-center text-sm ${
+                                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                    } hover:bg-gray-100 transition-colors`}
+                                >
+                                    <td className="px-6 py-3 border-t">{tratamento.paciente.nome}</td>
+                                    <td className="px-6 py-3 border-t">{tratamento.idade}</td>
+                                    <td className="px-6 py-3 border-t">
+                                    {formatarData(tratamento.dataEntrada)}
+                                    </td>
+                                    <td className="px-6 py-3 border-t">{tratamento.indicacao}</td>
+                                    <td className="px-6 py-3 border-t">
+                                    <button
+                                        className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition-colors"
+                                        onClick={() => {
+                                        setTratamentoSelecionado(tratamento);
+                                        abrirModal();
+                                        }}
+                                    >
+                                        Iniciar Avaliação
+                                    </button>
+                                    </td>
+                                </tr>
                                 ))}
                             </tbody>
-                        </table>
+                            </table>
+                        </div>
                     </section>
 
                     {mostrarModal && (
@@ -224,41 +238,51 @@ export default function ProfissionalAtendimentosPage() {
                         </div>
                     )}
 
-                    <section className="mt-10">
-                        <h2 className="text-xl font-semibold text-green-700 mb-2">Em Tratamento</h2>
-                        <table className="min-w-full bg-white border border-gray-300 shadow rounded">
-                            <thead className="bg-green-100">
-                                <tr className="text-center">
-                                    <th className="px-4 py-2 border">Paciente</th>
-                                    <th className="px-4 py-2 border">Idade</th>
-                                    <th className="px-4 py-2 border">Data Início</th>
-                                    <th className="px-4 py-2 border">Indicação</th>
-                                    <th className="px-4 py-2 border">Ações</th>
+                    <section className="mt-16">
+                        <h2 className="text-2xl font-medium text-green-700 mb-4 text-center">
+                            Em Tratamento
+                        </h2>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
+                            <thead className="bg-gradient-to-r from-green-600 to-green-700 text-white">
+                                <tr className="text-center text-sm font-semibold">
+                                <th className="px-6 py-3">Paciente</th>
+                                <th className="px-6 py-3">Idade</th>
+                                <th className="px-6 py-3">Data Início</th>
+                                <th className="px-6 py-3">Indicação</th>
+                                <th className="px-6 py-3">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {emTratamento.map((tratamento) => (
-                                    <tr key={tratamento.id} className="text-center">
-                                        <td className="border px-4 py-2">{tratamento.paciente.nome}</td>
-                                        <td className="border px-4 py-2">{tratamento.idade}</td>
-                                        <td className="border px-4 py-2">{formatarData(tratamento.dataInicio)}</td>
-                                        <td className="border px-4 py-2">{tratamento.indicacao}</td>
-                                        <td className="border px-4 py-2">
-                                            <button
-                                                className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                                                onClick={() => {
-                                                    setTratamentoSelecionado(tratamento);
-                                                    abrirModalEditar();
-                                                    console.log(tratamento)
-                                                }}
-                                            >
-                                                Editar
-                                            </button>
-                                        </td>
-                                    </tr>
+                                {emTratamento.map((tratamento, idx) => (
+                                <tr
+                                    key={tratamento.id}
+                                    className={`text-center text-sm ${
+                                    idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                    } hover:bg-gray-100 transition-colors`}
+                                >
+                                    <td className="px-6 py-3 border-t">{tratamento.paciente.nome}</td>
+                                    <td className="px-6 py-3 border-t">{tratamento.idade}</td>
+                                    <td className="px-6 py-3 border-t">
+                                    {formatarData(tratamento.dataInicio)}
+                                    </td>
+                                    <td className="px-6 py-3 border-t">{tratamento.indicacao}</td>
+                                    <td className="px-6 py-3 border-t">
+                                    <button
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition-colors"
+                                        onClick={() => {
+                                        setTratamentoSelecionado(tratamento);
+                                        abrirModalEditar();
+                                        }}
+                                    >
+                                        Editar
+                                    </button>
+                                    </td>
+                                </tr>
                                 ))}
                             </tbody>
-                        </table>
+                            </table>
+                        </div>
                     </section>
                     
                     {mostrarModalEditar && (

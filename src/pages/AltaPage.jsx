@@ -42,9 +42,11 @@ export default function AltaPage(){
 
 
     return(
-        <div className="max-w-4xl mx-auto p-6">
-            <h1 className="text-2xl font-bold text-center mb-6">Altas por Profissional</h1>
-
+        <div className="max-w-7xl mx-auto p-8 bg-gray-50 min-h-screen">
+            
+            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Altas
+            </h1>
 
             <div className="flex flex-wrap gap-4 justify-center mb-8">
 

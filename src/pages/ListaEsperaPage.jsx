@@ -140,14 +140,17 @@ function ListaEsperaPage(){
     const hoje = new Date();
 
     return(
-        <div className="min-h-screen bg-gray-100 p-4">
-            <h1 className="text-2xl font-bold text-center mb-6">Aguardando</h1>
+        <div className="max-w-7xl mx-auto p-8 bg-gray-50 min-h-screen">
+            
+            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Aguardando
+            </h1>
 
             {/* Formulário de adição na lista */}
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead className="bg-gray-100">
+            <table className="min-w-full bg-white rounded-lg overflow-hidden">
+                <thead className="max-w-7xl mx-auto p-8 bg-gray-800 min-h-screen text-white">
                 <tr className="text-left">
-                    <th className="py-2 px-4 border-b">Paciente</th>
+                    <th className="py-2 w-60 px-4 border-b">Paciente</th>
                     <th className="py-2 px-4 border-b">Data Entrada</th>
                     <th className="py-2 px-4 border-b">Indicação</th>
                     <th className="py-2 px-4 border-b">Preferência</th>
@@ -158,7 +161,7 @@ function ListaEsperaPage(){
                 {mostrarFormulario && (
                     <tr className="bg-blue-50">
                     {/* Campo paciente com busca */}
-                    <td className="py-2 px-4 border-b relative">
+                    <td className="py-2 px-4 border-b absolute">
                         <input
                         type="text"
                         value={busca}
@@ -243,16 +246,16 @@ function ListaEsperaPage(){
 
             {/* Lista de pacientes aguardando */}
             <div className="overflow-x-auto mt-6">
-                <table className="min-w-full bg-white rounded shadow">
-                <thead className="bg-gradient-to-r from-gray-100 to-gray-200">
-                    <tr className="text-left text-gray-700 text-sm">
-                    <th className="px-4 py-3">Nome</th>
-                    <th className="px-4 py-3">Data Entrada</th>
-                    {/* <th className="px-4 py-3">Dias</th> */}
-                    <th className="px-4 py-3">Indicação</th>
-                    <th className="px-4 py-3">Idade</th>
-                    <th className="px-4 py-3">Preferência</th>
-                    <th className="px-4 py-3">Ações</th>
+                <table className="min-w-full bg-white rounded-lg overflow-hidden">
+                <thead className="max-w-7xl mx-auto p-8 bg-gray-800 min-h-screen text-white">
+                    <tr className="text-left text-sm">
+                        <th className="px-4 py-3">Nome</th>
+                        <th className="px-4 py-3">Data Entrada</th>
+                        {/* <th className="px-4 py-3">Dias</th> */}
+                        <th className="px-4 py-3">Indicação</th>
+                        <th className="px-4 py-3">Idade</th>
+                        <th className="px-4 py-3">Preferência</th>
+                        <th className="px-4 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
