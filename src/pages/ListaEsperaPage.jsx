@@ -9,7 +9,6 @@ function ListaEsperaPage(){
     async function fetchPacientes(){
         const response = await fetch('http://localhost:3001/tratamentos/aguardando').then(res => (res.json()));
         setTratamentos(response);
-        console.log(response)
     };
 
     useEffect(() => {
@@ -39,7 +38,6 @@ function ListaEsperaPage(){
     const [tratamentoSelecionado, setTratamentoSelecionado] = useState([]);
 
     useEffect(() => {
-        console.log(tratamentoSelecionado);
     }, [tratamentoSelecionado])
 
     /************************************/
@@ -99,7 +97,6 @@ function ListaEsperaPage(){
         try {
             const response = await fetch(`http://localhost:3001/pacientes/busca?caracter=${value}`);
             const data = await response.json();
-            console.log(data)
 
             setResultados(data);
         } catch (error) {
@@ -149,13 +146,13 @@ function ListaEsperaPage(){
             {/* Formulário de adição na lista */}
             <table className="min-w-full bg-white rounded-lg overflow-hidden">
                 <thead className="max-w-7xl mx-auto p-8 bg-gray-800 min-h-screen text-white">
-                <tr className="text-left">
-                    <th className="py-2 w-60 px-4 border-b">Paciente</th>
-                    <th className="py-2 px-4 border-b">Data Entrada</th>
-                    <th className="py-2 px-4 border-b">Indicação</th>
-                    <th className="py-2 px-4 border-b">Preferência</th>
-                    <th className="py-2 px-4 border-b">Ações</th>
-                </tr>
+                    <tr className="text-left">
+                        <th className="py-2 w-60 px-4 border-b">Paciente</th>
+                        <th className="py-2 px-4 border-b">Data Entrada</th>
+                        <th className="py-2 px-4 border-b">Indicação</th>
+                        <th className="py-2 px-4 border-b">Preferência</th>
+                        <th className="py-2 px-4 border-b">Ações</th>
+                    </tr>
                 </thead>
                 <tbody>
                 {mostrarFormulario && (
@@ -246,17 +243,17 @@ function ListaEsperaPage(){
 
             {/* Lista de pacientes aguardando */}
             <div className="overflow-x-auto mt-6">
-                <table className="min-w-full bg-white rounded-lg overflow-hidden">
-                <thead className="max-w-7xl mx-auto p-8 bg-gray-800 min-h-screen text-white">
-                    <tr className="text-left text-sm">
-                        <th className="px-4 py-3">Nome</th>
-                        <th className="px-4 py-3">Data Entrada</th>
-                        {/* <th className="px-4 py-3">Dias</th> */}
-                        <th className="px-4 py-3">Indicação</th>
-                        <th className="px-4 py-3">Idade</th>
-                        <th className="px-4 py-3">Preferência</th>
-                        <th className="px-4 py-3">Ações</th>
-                    </tr>
+                <table className="min-w-full bg-white rounded-t-lg overflow-hidden">
+                    <thead className="max-w-7xl mx-auto p-8 bg-gray-800 min-h-screen text-white">
+                        <tr className="text-left">
+                            <th className="px-4 py-3">Nome</th>
+                            <th className="px-4 py-3">Data Entrada</th>
+                            {/* <th className="px-4 py-3">Dias</th> */}
+                            <th className="px-4 py-3">Indicação</th>
+                            <th className="px-4 py-3">Idade</th>
+                            <th className="px-4 py-3">Preferência</th>
+                            <th className="px-4 py-3">Ações</th>
+                        </tr>
                 </thead>
                 <tbody>
                     {tratamentos.map((tratamento) => (

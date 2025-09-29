@@ -21,7 +21,6 @@ function DetalhesAtendimento({ listaIdGuia }) {
 
                 // aguarda todas terminarem
                 const resultados = await Promise.all(promises);
-                console.log(resultados);
 
                 setAtendimentos(resultados.flat());
                 } catch (error) {

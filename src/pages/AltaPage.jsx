@@ -141,7 +141,7 @@ export default function AltaPage(){
                     </tbody>
                 </table>
             ) : profissionalSelecionado ? (
-                <p className="text-center mt-4 text-gray-500">Nenhuma alta para este profissional.</p>
+                <p className="text-center mt-4 text-gray-500 italic">Nenhuma alta para este profissional.</p>
             ) : null}
     </div>
     )

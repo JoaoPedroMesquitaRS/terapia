@@ -27,8 +27,6 @@ export default function ProfissionalAtendimentosPage() {
                 
                 setAguardandoAvaliacao(aguardando);
                 setEmTratamento(emTratamento);
-                
-                console.log(dados);
             });
         }            
     }

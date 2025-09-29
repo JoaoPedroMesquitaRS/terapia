@@ -21,7 +21,6 @@ function ValoresFaturadosPage() {
                 qtdAtendida: 1,
                 valorUnitario: parseFloat(h.guia?.servico?.valor || 0),
             }));
-            console.log(formatado)
             setFaturamentos(formatado);
         }
 

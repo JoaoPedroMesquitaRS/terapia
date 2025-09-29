@@ -62,7 +62,6 @@ function AdicionarGuia({ idTratamento }){
         try {
             const response = await fetch(`http://localhost:3001/servicos?caracter=${value}`);
             const data = await response.json();
-            console.log(data)
 
             setResultados(data);
         } catch (error) {
